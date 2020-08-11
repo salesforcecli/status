@@ -3,7 +3,7 @@
 ## SFDX Plug-ins:
 
 ### plugin-config
-[![NPM](https://img.shields.io/npm/v/@salesforce/plugin-config.svg)](https://www.npmjs.com/package/@salesforce/core)
+[![NPM](https://img.shields.io/npm/v/@salesforce/plugin-config.svg)](https://www.npmjs.com/package/@salesforce/plugin-config)
 [![plugin-config](https://circleci.com/gh/salesforcecli/plugin-config.svg?style=shield)](https://app.circleci.com/pipelines/github/salesforcecli/plugin-config)
 
 
