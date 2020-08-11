@@ -3,11 +3,12 @@
 ## SFDX Plug-ins:
 
 ### plugin-config
+[![NPM](https://img.shields.io/npm/v/@salesforce/plugin-config.svg)](https://www.npmjs.com/package/@salesforce/core)
 [![plugin-config](https://circleci.com/gh/salesforcecli/plugin-config.svg?style=shield)](https://app.circleci.com/pipelines/github/salesforcecli/plugin-config)
 
 
 
-## Libraries:
+## Libraries used by Salesforce CLI:
 ### @salesforce/core
 [![NPM](https://img.shields.io/npm/v/@salesforce/core.svg)](https://www.npmjs.com/package/@salesforce/core)
 [![CircleCI](https://circleci.com/gh/forcedotcom/sfdx-core.svg?style=shield&circle-token=2377ca31221869e9d13448313620486da80e595f)](https://circleci.com/gh/forcedotcom/sfdx-core)
