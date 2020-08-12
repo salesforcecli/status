@@ -1,14 +1,29 @@
-# A repository to monitor the status of the Salesforce CLI and its plug-ins
+# Salesforce CLI Status
+A repository to monitor the status of the Salesforce CLI releases, packages, and it's plug-ins.          
+***
 
-## SFDX Plug-ins:
+## Plug-ins:
 
-### [plugin-config](https://github.com/salesforcecli/plugin-config)
-[![NPM](https://img.shields.io/npm/v/@salesforce/plugin-config.svg)](https://www.npmjs.com/package/@salesforce/plugin-config)
-[![plugin-config](https://circleci.com/gh/salesforcecli/plugin-config.svg?style=shield)](https://app.circleci.com/pipelines/github/salesforcecli/plugin-config)
+| plug-in names | npm version | circleci status |
+| :---         |     :---      |          :--- |
+| [plugin-config](https://github.com/salesforcecli/plugin-config)   | [![NPM](https://img.shields.io/npm/v/@salesforce/plugin-config.svg)](https://www.npmjs.com/package/@salesforce/plugin-config)     | [![circleci](https://circleci.com/gh/salesforcecli/plugin-config.svg?style=svg)](https://app.circleci.com/pipelines/github/salesforcecli/plugin-config)    |
+| [plugin-custom-metadata](https://github.com/salesforcecli/plugin-custom-metadata)     | [![NPM](https://img.shields.io/npm/v/@salesforce/plugin-custom-metadata.svg)](https://www.npmjs.com/package/@salesforce/plugin-custom-metadata) 
+| [sfdx-trust](https://www.npmjs.com/package/@salesforce/sfdx-trust)    | [![NPM](https://img.shields.io/npm/v/@salesforce/sfdx-trust.svg)](https://www.npmjs.com/package/@salesforce/sfdx-trust)       | <!-- cirleci status -->      |
+| [salesforcedx-templates](https://github.com/forcedotcom/salesforcedx-templates)     | [![NPM](https://img.shields.io/npm/v/salesforcedx-templates.svg)](https://www.npmjs.com/package/salesforcedx-templates)      | [![CircleCI](https://circleci.com/gh/forcedotcom/salesforcedx-templates/tree/master.svg?style=svg)](https://circleci.com/gh/forcedotcom/salesforcedx-templates/tree/master)       |
 
+## Packages:
+| package names | npm version    | circleci status  |
+| :---         |     :---      |          :---   |
+| [@salesforce/core](https://github.com/forcedotcom/sfdx-core) | [![NPM](https://img.shields.io/npm/v/@salesforce/core.svg)](https://www.npmjs.com/package/@salesforce/core) | [![CircleCI](https://circleci.com/gh/forcedotcom/sfdx-core.svg?style=svg&circle-token=2377ca31221869e9d13448313620486da80e595f)](https://circleci.com/gh/forcedotcom/sfdx-core)|
+| [@salesforce/kit](https://github.com/forcedotcom/sfdx-dev-packages)| [![NPM](https://img.shields.io/npm/v/@salesforce/kit.svg)](https://www.npmjs.com/package/@salesforce/kit)|[![CircleCI](https://circleci.com/gh/forcedotcom/sfdx-dev-packages.svg?style=svg)](https://github.com/forcedotcom/sfdx-dev-packages) |
+|[@salesforce/command](https://github.com/salesforce/cli-packages) | [![NPM](https://img.shields.io/npm/v/@salesforce/command.svg)](https://www.npmjs.com/package/@salesforce/command) | [![CircleCI](https://circleci.com/gh/forcedotcom/cli-packages.svg?style=svg&circle-token=c0b10c691c5b68284d942f3f8bde7e281b0f31a8)](https://circleci.com/gh/forcedotcom/cli-packages)|
 
-
-## Libraries used by Salesforce CLI:
-### [@salesforce/core](https://github.com/forcedotcom/sfdx-core)
-[![NPM](https://img.shields.io/npm/v/@salesforce/core.svg)](https://www.npmjs.com/package/@salesforce/core)
-[![CircleCI](https://circleci.com/gh/forcedotcom/sfdx-core.svg?style=shield&circle-token=2377ca31221869e9d13448313620486da80e595f)](https://circleci.com/gh/forcedotcom/sfdx-core)
+<!-- 
+Example markup for table
+| Plug-in name | npm version    | circleci status  |
+| :---         |     :---:      |          :---:   |
+| name         | npm badge       | circleci badge  |
+| name         | npm badge       | circleci badge  |
+| name         | npm badge       | circleci badge  |
+| name         | npm badge       | circleci badge  | 
+-->
