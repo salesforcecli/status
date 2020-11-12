@@ -1,0 +1,49 @@
+{
+  "Salesforce CLI Plugins": [{
+    "githubUrl": "https://github.com/salesforcecli/plugin-alias"
+  }, {
+    "githubUrl": "https://github.com/salesforcecli/plugin-auth"
+  },{
+    "githubUrl": "https://github.com/salesforcecli/plugin-config"
+  },{
+    "githubUrl": "https://github.com/salesforcecli/plugin-custom-metadata",
+    "private": true
+  },{
+    "githubUrl": "https://github.com/salesforcecli/data",
+    "private": true
+  },{
+    "githubUrl": "https://github.com/salesforcecli/plugin-release-management"
+  },{
+    "githubUrl": "https://github.com/salesforcecli/plugin-schema"
+  },{
+    "githubUrl": "https://github.com/salesforcecli/plugin-user"
+  },{
+    "githubUrl": "https://github.com/forcedotcom/salesforcedx-apex",
+    "packages": ["@salesforce/plugin-apex", "@salesforce/apex-node"],
+    "private": true
+  },{
+    "githubUrl": "https://github.com/forcedotcom/salesforcedx-templates",
+    "packages": ["@salesforce/plugin-templates", "@salesforce/templates"],
+    "noLastRelease": true
+  },{
+    "githubUrl": "https://github.com/forcedotcom/sfdx-scanner",
+    "noLastRelease": true
+  }],
+  
+  "Library Packages": [{
+    "githubUrl": "https://github.com/forcedotcom/cli-packages",
+    "packages": ["@salesforce/command", "@salesforce/telemetry"],
+    "noLastRelease": true
+  },{
+    "githubUrl": "https://github.com/forcedotcom/sfdx-core",
+    "packages": ["@salesforce/core"]
+  },{
+    "githubUrl": "https://github.com/forcedotcom/sfdx-dev-packages",
+    "packages": ["@salesforce/kit", "@salesforce/ts-types"],
+    "noLastRelease": true
+  }],
+
+  "Circle CI Orbs": [{
+    "githubUrl": "https://github.com/salesforcecli/plugin-config"
+  }]
+}
