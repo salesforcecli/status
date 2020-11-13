@@ -4,56 +4,49 @@ const repositories = require('./repositories.json');
 
 const readme = fs.readFileSync('./README.md', 'utf8');
 
-const headers = ['Salesforce CLI Plugins', 'Library Packages', 'Circle CI Orbs'];
+const HEADER = '<!-- Repositories -->\n';
+const repositoryIndex = readme.indexOf(HEADER);
 
-const sections = readme.split('## ');
+let contents = `${HEADER}\n`;
 
-function replaceSection(header) {
-  const section = sections.find(section => section.startsWith(header));
-  let contents = `## ${header}\n\n`;
+const list = repositories;
 
-  const list = repositories[header];
+contents += '| Repository | Package | Released | Status |\n';
+contents += '|------------|---------|----------|--------|\n';
 
-  if (!list) {
-    console.warn(`Can not find list of repositories in repositories.json for header '${header}'`);
-    return '';
+/**
+ * Get the img.shield badge as <type><name><version>.
+ * @param {name: string, type: 'package' | 'library' | 'orb'} package
+ */
+function getPackageBadge(package) {
+  let row = ''
+  const color = package.type === 'plugin' ? 'blue' : package.type === 'library' ? 'yellowgreen' : 'orange';
+  row += `![type](https://img.shields.io/badge/%20-${package.type}-${color})`;
+  if (package.type === 'orb') {
+    row += `[![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?label=${package.name}&url=https://badges.circleci.io/orb/${package.name})](https://circleci.com/orbs/registry/orb/${package.name})`
+  } else {
+    row += `[![NPM](https://img.shields.io/npm/v/${package.name}.svg?label=${package.name})](https://www.npmjs.com/package/${package.name})`;
   }
-
-  contents += '| name | version | last release | status |\n';
-  contents += '|------|---------|--------------|--------|\n';
-
-  for (const repo of list) {
-    const githubUrl = repo.githubUrl;
-    const [_, ghOrg, ghRepoName] = githubUrl.match(/https:\/\/github.com\/(\w+)\/([\w_-]+)/);
-    const slug = `${ghOrg}/${ghRepoName}`;
-    // Use the @salesforce scope by default. If this needs to be changes, specify the packages directly in the repositories.json.
-    const packages = repo.packages || [`@salesforce/${ghRepoName}`];
-    
-    const name = `[${slug}](https://github.com/${slug})`;
-    const versions = packages.map(package => `[![NPM](https://img.shields.io/npm/v/${package}.svg?label=${package})](https://www.npmjs.com/package/${package})`).join('<br>');
-    const lastRelease = !repo.private && !repo.noLastRelease ? `![GitHub Release Date](https://img.shields.io/github/release-date/${slug}?color=ffc16b&label=%20)` : '';
-    const status = !repo.private ? `[![circleci](https://circleci.com/gh/${slug}.svg?style=svg)](https://app.circleci.com/pipelines/github/${slug})` : '';
-    
-    const tableSegments = [ name, versions, lastRelease, status ]
-    contents += `| ${tableSegments.join(' | ')} |\n`;
-  }
-
-  contents += '\n';
-
-  return contents;
+  return row;
 }
 
-const mainSection = sections.shift();
+for (const repo of list) {
+  const url = repo.url;
+  // Only supports github repositories right now
+  const [_, ghOrg, ghRepoName] = url.match(/https:\/\/github.com\/(\w+)\/([\w_-]+)/);
+  const slug = `${ghOrg}/${ghRepoName}`;
+  const supportsReleases = typeof repo.supportsReleases === 'boolean' ? repo.supportsReleases : true;
 
-const modifiedSections = sections.map(section => {
-  const header = section.split('\n')[0];
-  const newContents = replaceSection(header);
-  // The ## header was replaced in the split.
-  return newContents || `## ${section}`;
-});
+  const repository = `[${slug}](https://github.com/${slug})`;
+  const packages = repo.packages.map(getPackageBadge).join('<br>');
+  const released = !repo.private && supportsReleases ? `![GitHub Release Date](https://img.shields.io/github/release-date/${slug}?color=ffc16b&label=%20)` : '';
+  const status = !repo.private ? `[![circleci](https://circleci.com/gh/${slug}.svg?style=svg)](https://app.circleci.com/pipelines/github/${slug})` : '';
+  
+  const tableSegments = [ repository, packages, released, status ]
+  contents += `| ${tableSegments.join(' | ')} |\n`;
+}
 
-const newContents = [mainSection, ...modifiedSections].join('');
+contents += '\n';
 
-// console.log(newContents);
-
+const newContents = readme.substring(0, repositoryIndex) + contents;
 fs.writeFileSync('README.md', newContents, '')
