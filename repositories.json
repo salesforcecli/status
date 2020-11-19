@@ -44,6 +44,12 @@
     "type": "plugin"
   }]
 },{
+  "url": "https://github.com/salesforcecli/plugin-trust",
+  "packages": [{
+    "name": "@salesforce/plugin-trust",
+    "type": "plugin"
+  }]
+},{
   "url": "https://github.com/salesforcecli/plugin-user",
   "packages": [{
     "name": "@salesforce/plugin-user",
