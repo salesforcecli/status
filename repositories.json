@@ -50,7 +50,15 @@
     "type": "plugin"
   }],
   "supportsReleases": false
-},{
+},
+  {
+    "url": "https://github.com/salesforcecli/plugin-limits",
+    "packages": [{
+      "name": "@salesforce/plugin-limits",
+      "type": "plugin"
+    }],
+    "supportsReleases": false
+  },{
   "url": "https://github.com/forcedotcom/salesforcedx-apex",
   "packages": [{
     "name": "@salesforce/plugin-apex",
