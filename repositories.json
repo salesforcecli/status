@@ -1,4 +1,11 @@
 [{
+  "url": "https://github.com/salesforcecli/salesforcedx",
+  "packages": [{
+    "name": "@salesforce/salesforcedx",
+    "type": "aggregator"
+  }]
+},
+  {
   "url": "https://github.com/salesforcecli/plugin-alias",
   "packages": [{
     "name": "@salesforce/plugin-alias",
