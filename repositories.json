@@ -185,7 +185,7 @@
     "url": "https://github.com/salesforcecli/plugin-telemetry",
     "packages": [
       {
-        "name": "salesforce/plugin-telemetry",
+        "name": "@salesforce/plugin-telemetry",
         "type": "plugin"
       }
     ]
