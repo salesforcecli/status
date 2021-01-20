@@ -47,6 +47,15 @@
     "private": true
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-org",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-org",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-release-management",
     "packages": [
       {
@@ -61,6 +70,15 @@
     "packages": [
       {
         "name": "@salesforce/plugin-schema",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/salesforcecli/plugin-telemetry",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-telemetry",
         "type": "plugin"
       }
     ]
@@ -180,14 +198,5 @@
       }
     ],
     "supportsReleases": false
-  },
-  {
-    "url": "https://github.com/salesforcecli/plugin-telemetry",
-    "packages": [
-      {
-        "name": "@salesforce/plugin-telemetry",
-        "type": "plugin"
-      }
-    ]
   }
 ]
