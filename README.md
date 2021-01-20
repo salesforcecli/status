@@ -1,8 +1,8 @@
 # Salesforce CLI Status
 
-A collection of [repositories](./repostitories.json) used by the Salesforce CLI to list and monitor releases and packages health.
+A collection of [repositories](./repositories.json) used by the Salesforce CLI to list and monitor releases and packages health.
 
-*Do not modify the following sections manually. Make any changes to [repositories.json](./repostitories.json) then run `node generateReadme.js`.*
+*Do not modify the following sections manually. Make any changes to [repositories.json](./repositories.json) then run `node generateReadme.js`.*
 
 <!-- Repositories -->
 
