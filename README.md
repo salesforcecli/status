@@ -1,8 +1,8 @@
 # Salesforce CLI Status
 
-A collection of [repositories](./repostitories.json) used by the Salesforce CLI to list and monitor releases and packages health.
+A collection of [repositories](./repositories.json) used by the Salesforce CLI to list and monitor releases and packages health.
 
-*Do not modify the following sections manually. Make any changes to [repositories.json](./repostitories.json) then run `node generateReadme.js`.*
+*Do not modify the following sections manually. Make any changes to [repositories.json](./repositories.json) then run `node generateReadme.js`.*
 
 <!-- Repositories -->
 
@@ -26,4 +26,5 @@ A collection of [repositories](./repostitories.json) used by the Salesforce CLI 
 | [forcedotcom/sfdx-core](https://github.com/forcedotcom/sfdx-core) | ![type](https://img.shields.io/badge/%20-library-yellowgreen)[![NPM](https://img.shields.io/npm/v/@salesforce/core.svg?label=@salesforce/core)](https://www.npmjs.com/package/@salesforce/core) | ![GitHub Release Date](https://img.shields.io/github/release-date/forcedotcom/sfdx-core?color=ffc16b&label=%20) | [![circleci](https://circleci.com/gh/forcedotcom/sfdx-core.svg?style=svg)](https://app.circleci.com/pipelines/github/forcedotcom/sfdx-core) |
 | [forcedotcom/sfdx-dev-packages](https://github.com/forcedotcom/sfdx-dev-packages) | ![type](https://img.shields.io/badge/%20-library-yellowgreen)[![NPM](https://img.shields.io/npm/v/@salesforce/kit.svg?label=@salesforce/kit)](https://www.npmjs.com/package/@salesforce/kit)<br>![type](https://img.shields.io/badge/%20-library-yellowgreen)[![NPM](https://img.shields.io/npm/v/@salesforce/ts-types.svg?label=@salesforce/ts-types)](https://www.npmjs.com/package/@salesforce/ts-types) |  | [![circleci](https://circleci.com/gh/forcedotcom/sfdx-dev-packages.svg?style=svg)](https://app.circleci.com/pipelines/github/forcedotcom/sfdx-dev-packages) |
 | [forcedotcom/npm-release-management-orb](https://github.com/forcedotcom/npm-release-management-orb) | ![type](https://img.shields.io/badge/%20-orb-orange)[![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?label=salesforce/npm-release-management&url=https://badges.circleci.io/orb/salesforce/npm-release-management)](https://circleci.com/orbs/registry/orb/salesforce/npm-release-management) |  | [![circleci](https://circleci.com/gh/forcedotcom/npm-release-management-orb.svg?style=svg)](https://app.circleci.com/pipelines/github/forcedotcom/npm-release-management-orb) |
+| [salesforcecli/plugin-telemetry](https://github.com/salesforcecli/plugin-telemetry) | ![type](https://img.shields.io/badge/%20-plugin-blue)[![NPM](https://img.shields.io/npm/v/@salesforce/plugin-telemetry.svg?label=@salesforce/plugin-telemetry)](https://www.npmjs.com/package/@salesforce/plugin-telemetry) | ![GitHub Release Date](https://img.shields.io/github/release-date/salesforcecli/plugin-telemetry?color=ffc16b&label=%20) | [![circleci](https://circleci.com/gh/salesforcecli/plugin-telemetry.svg?style=svg)](https://app.circleci.com/pipelines/github/salesforcecli/plugin-telemetry) |
 

@@ -66,71 +66,99 @@
 },
   {
     "url": "https://github.com/salesforcecli/plugin-limits",
-    "packages": [{
-      "name": "@salesforce/plugin-limits",
-      "type": "plugin"
-    }],
+    "packages": [
+      {
+        "name": "@salesforce/plugin-limits",
+        "type": "plugin"
+      }
+    ],
     "supportsReleases": false
-  },{
-  "url": "https://github.com/forcedotcom/salesforcedx-apex",
-  "packages": [{
-    "name": "@salesforce/plugin-apex",
-    "type": "plugin"
-  }, {
-    "name": "@salesforce/apex-node",
-    "type": "library"
-  }],
-  "private": true
-},{
-  "url": "https://github.com/forcedotcom/salesforcedx-templates",
-  "packages": [{
-    "name": "@salesforce/plugin-templates",
-    "type": "plugin"
-  }, {
-    "name": "@salesforce/templates",
-    "type": "library"
-  }],
-  "supportsReleases": false
-},{
-  "url": "https://github.com/forcedotcom/sfdx-scanner",
-  "packages": [{
-    "name": "@salesforce/sfdx-scanner",
-    "type": "plugin"
-  }],
-  "supportsReleases": false
-},{
-  "url": "https://github.com/forcedotcom/cli-packages",
-  "packages": [{
-    "name": "@salesforce/command",
-    "type": "library"
-  }, {
-    "name": "@salesforce/telemetry",
-    "type": "library"
-  }],
-  "supportsReleases": false
-},{
-  "url": "https://github.com/forcedotcom/sfdx-core",
-  "packages": [{
-    "name": "@salesforce/core",
-    "type": "library"
-  }]
-},{
-  "types": ["library"],
-  "url": "https://github.com/forcedotcom/sfdx-dev-packages",
-  "packages": [{
-    "name":"@salesforce/kit",
-    "type": "library"
-  }, {
-    "name": "@salesforce/ts-types",
-    "type": "library"
-  }],
-  "supportsReleases": false
-},{
-  "types": ["orb"],
-  "url": "https://github.com/forcedotcom/npm-release-management-orb",
-  "packages": [{
-    "name": "salesforce/npm-release-management",
-    "type": "orb"
-  }],
-  "supportsReleases": false
-}]
+  },
+  {
+    "url": "https://github.com/forcedotcom/salesforcedx-apex",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-apex",
+        "type": "plugin"
+      },
+      {
+        "name": "@salesforce/apex-node",
+        "type": "library"
+      }
+    ],
+    "private": true
+  },
+  {
+    "url": "https://github.com/forcedotcom/salesforcedx-templates",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-templates",
+        "type": "plugin"
+      },
+      {
+        "name": "@salesforce/templates",
+        "type": "library"
+      }
+    ],
+    "supportsReleases": false
+  },
+  {
+    "url": "https://github.com/forcedotcom/sfdx-scanner",
+    "packages": [
+      {
+        "name": "@salesforce/sfdx-scanner",
+        "type": "plugin"
+      }
+    ],
+    "supportsReleases": false
+  },
+  {
+    "url": "https://github.com/forcedotcom/cli-packages",
+    "packages": [
+      {
+        "name": "@salesforce/command",
+        "type": "library"
+      },
+      {
+        "name": "@salesforce/telemetry",
+        "type": "library"
+      }
+    ],
+    "supportsReleases": false
+  },
+  {
+    "url": "https://github.com/forcedotcom/sfdx-core",
+    "packages": [
+      {
+        "name": "@salesforce/core",
+        "type": "library"
+      }
+    ]
+  },
+  {
+    "types": ["library"],
+    "url": "https://github.com/forcedotcom/sfdx-dev-packages",
+    "packages": [
+      {
+        "name": "@salesforce/kit",
+        "type": "library"
+      },
+      {
+        "name": "@salesforce/ts-types",
+        "type": "library"
+      }
+    ],
+    "supportsReleases": false
+  },
+  {
+    "types": ["orb"],
+    "url": "https://github.com/forcedotcom/npm-release-management-orb",
+    "packages": [
+      {
+        "name": "salesforce/npm-release-management",
+        "type": "orb"
+      }
+    ],
+    "supportsReleases": false
+  }
+]
