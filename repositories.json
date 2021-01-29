@@ -10,14 +10,13 @@
     "name": "@salesforce/salesforcedx",
     "type": "aggregator"
   }]
-},
-  {
+},{
   "url": "https://github.com/salesforcecli/plugin-alias",
   "packages": [{
     "name": "@salesforce/plugin-alias",
     "type": "plugin"
   }]
-}, {
+},{
   "url": "https://github.com/salesforcecli/plugin-auth",
   "packages": [{
     "name": "@salesforce/plugin-auth",
@@ -44,6 +43,12 @@
   }],
   "private": true
 },{
+  "url": "https://github.com/salesforcecli/plugin-org",
+  "packages": [{
+    "name": "@salesforce/plugin-org",
+    "type": "plugin"
+  }]
+},{
   "url": "https://github.com/salesforcecli/plugin-release-management",
   "packages": [{
     "name": "@salesforce/plugin-release-management",
@@ -54,6 +59,12 @@
   "url": "https://github.com/salesforcecli/plugin-schema",
   "packages": [{
     "name": "@salesforce/plugin-schema",
+    "type": "plugin"
+  }]
+},{
+  "url": "https://github.com/salesforcecli/plugin-telemetry",
+  "packages": [{
+    "name": "@salesforce/plugin-telemetry",
     "type": "plugin"
   }]
 },{
@@ -69,8 +80,7 @@
     "type": "plugin"
   }],
   "supportsReleases": false
-},
-  {
+},{
     "url": "https://github.com/salesforcecli/plugin-limits",
     "packages": [
       {
@@ -79,8 +89,15 @@
       }
     ],
     "supportsReleases": false
-  },
-  {
+},{
+    "url": "https://github.com/salesforcecli/cli-plugins-testkit",
+    "packages": [
+      {
+        "name": "@salesforce/cli-plugins-testkit",
+        "type": "library"
+      }
+    ]
+},{
     "url": "https://github.com/forcedotcom/salesforcedx-apex",
     "packages": [
       {
