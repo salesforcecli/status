@@ -38,6 +38,9 @@
 },{
   "url": "https://github.com/salesforcecli/data",
   "packages": [{
+    "name": "@salesforce/data",
+    "type": "library"
+  },{
     "name": "@salesforce/plugin-data",
     "type": "plugin"
   }]
