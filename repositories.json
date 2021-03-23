@@ -40,8 +40,7 @@
   "packages": [{
     "name": "@salesforce/plugin-data",
     "type": "plugin"
-  }],
-  "private": true
+  }]
 },{
   "url": "https://github.com/salesforcecli/plugin-org",
   "packages": [{
