@@ -58,6 +58,12 @@
     "type": "plugin"
   }]
 },{
+  "url": "https://github.com/salesforcecli/plugin-source",
+  "packages": [{
+    "name": "@salesforce/plugin-source",
+    "type": "plugin"
+  }]
+},{
   "url": "https://github.com/salesforcecli/plugin-telemetry",
   "packages": [{
     "name": "@salesforce/plugin-telemetry",
@@ -150,6 +156,14 @@
     "packages": [
       {
         "name": "@salesforce/core",
+        "type": "library"
+      }
+    ]
+  },{
+    "url": "https://github.com/forcedotcom/source-deploy-retrieve",
+    "packages": [
+      {
+        "name": "@salesforce/source-deploy-retrieve",
         "type": "library"
       }
     ]
