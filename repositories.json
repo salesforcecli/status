@@ -176,6 +176,14 @@
         "type": "library"
       }
     ]
+  },{
+    "url": "https://github.com/forcedotcom/telemetry",
+    "packages": [
+      {
+        "name": "@salesforce/telemetry",
+        "type": "library"
+      }
+    ]
   },
   {
     "types": ["library"],
