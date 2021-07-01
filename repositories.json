@@ -99,6 +99,15 @@
         "type": "library"
       }
     ]
+},
+{
+  "url": "https://github.com/salesforcecli/command",
+  "packages": [
+    {
+      "name": "@salesforce/command",
+      "type": "library"
+    }
+  ]
 },{
     "url": "https://github.com/forcedotcom/salesforcedx-apex",
     "packages": [
