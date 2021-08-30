@@ -166,19 +166,22 @@
     ]
   },
   {
-    "types": ["library"],
-    "url": "https://github.com/forcedotcom/sfdx-dev-packages",
+    "url": "https://github.com/forcedotcom/kit",
     "packages": [
       {
         "name": "@salesforce/kit",
         "type": "library"
-      },
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/forcedotcom/ts-types",
+    "packages": [
       {
         "name": "@salesforce/ts-types",
         "type": "library"
       }
-    ],
-    "supportsReleases": false
+    ]
   },
   {
     "types": ["orb"],
