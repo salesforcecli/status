@@ -23,6 +23,12 @@
     "type": "plugin"
   }]
 },{
+  "url": "https://github.com/salesforcecli/plugin-community",
+  "packages": [{
+    "name": "@salesforce/plugin-community",
+    "type": "plugin"
+  }]
+},{
   "url": "https://github.com/salesforcecli/plugin-custom-metadata",
   "packages": [{
     "name": "@salesforce/plugin-custom-metadata",
