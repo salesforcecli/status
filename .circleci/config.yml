@@ -1,0 +1,54 @@
+version: 2.1
+orbs:
+  release-management: salesforce/npm-release-management@4
+  win: circleci/windows@2
+
+jobs:
+  test-macos-installation:
+    macos:
+      xcode: 12.5.1
+    steps:
+      - release-management/install-sf-release
+      - run: sf-release cli:install:test --cli sf --method installer
+      - run: sf-release cli:install:test --cli sf --method npm
+      - run: sf-release cli:install:test --cli sf --method tarball
+      - run: sf-release cli:install:test --cli sfdx --method installer
+      - run: sf-release cli:install:test --cli sfdx --method npm
+      - run: sf-release cli:install:test --cli sfdx --method tarball
+  test-linux-installation:
+    docker:
+      - image: node:lts
+    resource_class: xlarge
+    steps:
+      - release-management/install-sf-release
+      - run: sf-release cli:install:test --cli sf --method npm
+      - run: sf-release cli:install:test --cli sf --method tarball
+      - run: sf-release cli:install:test --cli sfdx --method npm
+      - run: sf-release cli:install:test --cli sfdx --method tarball
+  test-windows-installation:
+    executor:
+      name: win/default
+      size: xlarge
+    steps:
+      - release-management/install-sf-release
+      - run: sf-release cli:install:test --cli sf --method installer
+      - run: sf-release cli:install:test --cli sf --method npm
+      - run: sf-release cli:install:test --cli sf --method tarball
+      - run: sf-release cli:install:test --cli sfdx --method installer
+      - run: sf-release cli:install:test --cli sfdx --method npm
+      - run: sf-release cli:install:test --cli sfdx --method tarball
+
+workflows:
+  version: 2
+  installation-test:
+    triggers:
+      - schedule:
+          cron: "*/50 * * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - test-macos-installation
+      - test-linux-installation
+      - test-windows-installation
