@@ -40,10 +40,11 @@ jobs:
     steps:
       - run: npm install -g @salesforce/plugin-release-management
       - run: sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >>
-      - slack/status:
-          channel: 'cli-team-alerts'
-          fail_only: true
-          failure_message: 'CLI installation test failed. OS: windows, CLI: << parameters.cli >>, Method: << parameters.method >>'
+      # slack orb doesn't work with powershell...
+      # - slack/status:
+      #     channel: 'cli-team-alerts'
+      #     fail_only: true
+      #     failure_message: 'CLI installation test failed. OS: windows, CLI: << parameters.cli >>, Method: << parameters.method >>'
 
   test-linux-installation:
     parameters:
