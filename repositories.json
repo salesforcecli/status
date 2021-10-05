@@ -106,8 +106,7 @@
         "name": "@salesforce/plugin-functions",
         "type": "plugin"
       }
-    ],
-    "private": true
+    ]
   },
   {
     "url": "https://github.com/salesforcecli/plugin-limits",
