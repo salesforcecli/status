@@ -43,7 +43,7 @@ workflows:
   installation-test:
     triggers:
       - schedule:
-          cron: "*/50 * * * *"
+          cron: 0 * * * *
           filters:
             branches:
               only:
