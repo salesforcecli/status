@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   win: circleci/windows@2
   slack: circleci/slack@3.4.2
+  jq: circleci/jq@2
 
 jobs:
   test-macos-installation:
@@ -17,12 +18,22 @@ jobs:
     macos:
       xcode: 12.5.1
     steps:
+      - jq/install
+      - attach_workspace:
+          at: /tmp/workspace
       - run: npm install -g @salesforce/plugin-release-management
-      - run: sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >>
-      - slack/status:
-          channel: 'cli-team-alerts'
-          fail_only: true
-          failure_message: 'CLI installation test failed. OS: macos, CLI: << parameters.cli >>, Method: << parameters.method >>'
+      - run:
+          name: 'Test installation on macos'
+          command: |
+            results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json)
+            echo $results | jq .
+            status_num=$(echo $results | jq .status)
+            [[ $status_num = 0 ]] && status="Passed" || status="Failed"
+            echo -e "$status [macos/<< parameters.cli >>/<< parameters.method >>]" >> /tmp/workspace/macos.<< parameters.cli >>.<< parameters.method >>.results.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - macos.<< parameters.cli >>.<< parameters.method >>.results.txt
 
   test-windows-installation:
     parameters:
@@ -38,13 +49,20 @@ jobs:
       name: win/default
       size: xlarge
     steps:
+      - attach_workspace:
+          at: C:\tmp\workspace\
       - run: npm install -g @salesforce/plugin-release-management
-      - run: sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >>
-      # slack orb doesn't work with powershell...
-      # - slack/status:
-      #     channel: 'cli-team-alerts'
-      #     fail_only: true
-      #     failure_message: 'CLI installation test failed. OS: windows, CLI: << parameters.cli >>, Method: << parameters.method >>'
+      - run:
+          name: 'Test installation on windows'
+          command: |
+            $result = sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json | ConvertFrom-Json
+            echo $result
+            $status = if ($result.status -eq 0) { "Passed" } else { "Failed" }
+            Add-Content -Path C:\tmp\workspace\windows.<< parameters.cli >>.<< parameters.method >>.results.txt -Value "$status [windows/<< parameters.cli >>/<< parameters.method >>]" -PassThru
+      - persist_to_workspace:
+          root: C:\tmp\workspace\
+          paths:
+            - ./windows.<< parameters.cli >>.<< parameters.method >>.results.txt
 
   test-linux-installation:
     parameters:
@@ -59,19 +77,55 @@ jobs:
     docker:
       - image: node:lts
     steps:
+      - jq/install
+      - attach_workspace:
+          at: /tmp/workspace
       - run: npm install -g @salesforce/plugin-release-management
-      - run: sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >>
+      - run:
+          name: 'Test installation on linux'
+          command: |
+            results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json)
+            echo $results | jq .
+            status_num=$(echo $results | jq .status)
+            [[ $status_num = 0 ]] && status="Passed" || status="Failed"
+            echo -e "$status [linux/<< parameters.cli >>/<< parameters.method >>]" >> /tmp/workspace/linux.<< parameters.cli >>.<< parameters.method >>.results.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - linux.<< parameters.cli >>.<< parameters.method >>.results.txt
+
+  examine-results:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Search for test failures
+          command: |
+            successes=$(sed -n -e '/^Passed/p' /tmp/workspace/*)
+            echo "Successes:"
+            echo "$successes"
+
+            failures=$(sed -n -e '/^Failed/p' /tmp/workspace/*)
+            echo "Failures:"
+            echo "$failures"
+
+            if [[ ! -z "$failures" ]]; then
+              exit 1
+            fi;
       - slack/status:
           channel: 'cli-team-alerts'
           fail_only: true
-          failure_message: 'CLI installation test failed. OS: linux, CLI: << parameters.cli >>, Method: << parameters.method >>'
+          failure_message: 'CLI installation test failed. See examine-results job for more info.'
 
 workflows:
   version: 2
   installation-test:
     triggers:
       - schedule:
-          cron: 0 9 * * *
+          # Everyday at 10am Mountain Time
+          cron: 0 16 * * *
           filters:
             branches:
               only:
@@ -143,3 +197,22 @@ workflows:
           name: test-linux-sfdx-tarball
           cli: sfdx
           method: tarball
+
+      - examine-results:
+          requires:
+            - test-macos-sf-installer
+            - test-macos-sfdx-installer
+            - test-macos-sf-tarball
+            - test-macos-sfdx-tarball
+            - test-macos-sf-npm
+            - test-macos-sfdx-npm
+            - test-windows-sf-installer
+            - test-windows-sfdx-installer
+            - test-windows-sf-tarball
+            - test-windows-sfdx-tarball
+            - test-windows-sf-npm
+            - test-windows-sfdx-npm
+            - test-linux-sf-tarball
+            - test-linux-sfdx-tarball
+            - test-linux-sf-npm
+            - test-linux-sfdx-npm
