@@ -1,0 +1,145 @@
+version: 2.1
+orbs:
+  win: circleci/windows@2
+  slack: circleci/slack@3.4.2
+
+jobs:
+  test-macos-installation:
+    parameters:
+        method:
+          description: installation method
+          type: enum
+          enum: ['tarball', 'npm', 'installer']
+        cli:
+          description: cli to test
+          type: enum
+          enum: ['sf', 'sfdx']
+    macos:
+      xcode: 12.5.1
+    steps:
+      - run: npm install -g @salesforce/plugin-release-management
+      - run: sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >>
+      - slack/status:
+          channel: 'cli-team-alerts'
+          fail_only: true
+          failure_message: 'CLI installation test failed. OS: macos, CLI: << parameters.cli >>, Method: << parameters.method >>'
+
+  test-windows-installation:
+    parameters:
+      method:
+        description: installation method
+        type: enum
+        enum: ['tarball', 'npm', 'installer']
+      cli:
+        description: cli to test
+        type: enum
+        enum: ['sf', 'sfdx']
+    executor:
+      name: win/default
+      size: xlarge
+    steps:
+      - run: npm install -g @salesforce/plugin-release-management
+      - run: sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >>
+      # slack orb doesn't work with powershell...
+      # - slack/status:
+      #     channel: 'cli-team-alerts'
+      #     fail_only: true
+      #     failure_message: 'CLI installation test failed. OS: windows, CLI: << parameters.cli >>, Method: << parameters.method >>'
+
+  test-linux-installation:
+    parameters:
+      method:
+        description: installation method
+        type: enum
+        enum: ['tarball', 'npm', 'installer']
+      cli:
+        description: cli to test
+        type: enum
+        enum: ['sf', 'sfdx']
+    docker:
+      - image: node:lts
+    steps:
+      - run: npm install -g @salesforce/plugin-release-management
+      - run: sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >>
+      - slack/status:
+          channel: 'cli-team-alerts'
+          fail_only: true
+          failure_message: 'CLI installation test failed. OS: linux, CLI: << parameters.cli >>, Method: << parameters.method >>'
+
+workflows:
+  version: 2
+  installation-test:
+    triggers:
+      - schedule:
+          cron: 0 9 * * *
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - test-macos-installation:
+          name: test-macos-sf-installer
+          cli: sf
+          method: installer
+      - test-macos-installation:
+          name: test-macos-sfdx-installer
+          cli: sfdx
+          method: installer
+      - test-macos-installation:
+          name: test-macos-sf-npm
+          cli: sf
+          method: npm
+      - test-macos-installation:
+          name: test-macos-sfdx-npm
+          cli: sfdx
+          method: npm
+      - test-macos-installation:
+          name: test-macos-sf-tarball
+          cli: sf
+          method: tarball
+      - test-macos-installation:
+          name: test-macos-sfdx-tarball
+          cli: sfdx
+          method: tarball
+
+      - test-windows-installation:
+          name: test-windows-sf-installer
+          cli: sf
+          method: installer
+      - test-windows-installation:
+          name: test-windows-sfdx-installer
+          cli: sfdx
+          method: installer
+      - test-windows-installation:
+          name: test-windows-sf-npm
+          cli: sf
+          method: npm
+      - test-windows-installation:
+          name: test-windows-sfdx-npm
+          cli: sfdx
+          method: npm
+      - test-windows-installation:
+          name: test-windows-sf-tarball
+          cli: sf
+          method: tarball
+      - test-windows-installation:
+          name: test-windows-sfdx-tarball
+          cli: sfdx
+          method: tarball
+
+      - test-linux-installation:
+          name: test-linux-sf-npm
+          cli: sf
+          method: npm
+      - test-linux-installation:
+          name: test-linux-sfdx-npm
+          cli: sfdx
+          method: npm
+      - test-linux-installation:
+          name: test-linux-sf-tarball
+          cli: sf
+          method: tarball
+      - test-linux-installation:
+          name: test-linux-sfdx-tarball
+          cli: sfdx
+          method: tarball
