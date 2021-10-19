@@ -41,7 +41,7 @@ for (const repo of list) {
   const packages = repo.packages.map(getPackageBadge).join('<br>');
   const released = !repo.private && supportsReleases ? `![GitHub Release Date](https://img.shields.io/github/release-date/${slug}?color=ffc16b&label=%20)` : '';
   const status = !repo.private ? `[![circleci](https://circleci.com/gh/${slug}.svg?style=svg)](https://app.circleci.com/pipelines/github/${slug})` : '';
-  
+
   const tableSegments = [ repository, packages, released, status ]
   contents += `| ${tableSegments.join(' | ')} |\n`;
 }
