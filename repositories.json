@@ -115,8 +115,7 @@
         "name": "@salesforce/plugin-limits",
         "type": "plugin"
       }
-    ],
-    "supportsReleases": false
+    ]
   },
   {
     "url": "https://github.com/salesforcecli/plugin-org",
@@ -134,8 +133,7 @@
         "name": "@salesforce/plugin-release-management",
         "type": "plugin"
       }
-    ],
-    "supportsReleases": false
+    ]
   },
   {
     "url": "https://github.com/salesforcecli/plugin-schema",
@@ -180,8 +178,7 @@
         "name": "@salesforce/plugin-user",
         "type": "plugin"
       }
-    ],
-    "supportsReleases": false
+    ]
   },
   {
     "url": "https://github.com/salesforcecli/cli-plugins-testkit",
