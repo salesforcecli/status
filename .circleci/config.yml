@@ -21,7 +21,7 @@ jobs:
       - jq/install
       - attach_workspace:
           at: /tmp/workspace
-      - run: npm install -g @salesforce/plugin-release-management
+      - run: npm install -g @salesforce/plugin-release-management@test
       - run:
           name: 'Test installation on macos'
           command: |
@@ -29,7 +29,7 @@ jobs:
             echo $results | jq .
             status_num=$(echo $results | jq .status)
             [[ $status_num = 0 ]] && status="Passed" || status="Failed"
-            echo -e "$status [macos/<< parameters.cli >>/<< parameters.method >>]" >> /tmp/workspace/macos.<< parameters.cli >>.<< parameters.method >>.results.txt
+            echo -e "$status [macos/<< parameters.cli >>/<< parameters.method >> - $CIRCLE_BUILD_URL]" >> /tmp/workspace/macos.<< parameters.cli >>.<< parameters.method >>.results.txt
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
@@ -51,14 +51,14 @@ jobs:
     steps:
       - attach_workspace:
           at: C:\tmp\workspace\
-      - run: npm install -g @salesforce/plugin-release-management
+      - run: npm install -g @salesforce/plugin-release-management@test
       - run:
           name: 'Test installation on windows'
           command: |
             $result = sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json | ConvertFrom-Json
-            echo $result
+            echo $result | ConvertTo-Json
             $status = if ($result.status -eq 0) { "Passed" } else { "Failed" }
-            Add-Content -Path C:\tmp\workspace\windows.<< parameters.cli >>.<< parameters.method >>.results.txt -Value "$status [windows/<< parameters.cli >>/<< parameters.method >>]" -PassThru
+            Add-Content -Path C:\tmp\workspace\windows.<< parameters.cli >>.<< parameters.method >>.results.txt -Value "$status [windows/<< parameters.cli >>/<< parameters.method >> - $env:CIRCLE_BUILD_URL]" -PassThru
       - persist_to_workspace:
           root: C:\tmp\workspace\
           paths:
@@ -80,7 +80,7 @@ jobs:
       - jq/install
       - attach_workspace:
           at: /tmp/workspace
-      - run: npm install -g @salesforce/plugin-release-management
+      - run: npm install -g @salesforce/plugin-release-management@test
       - run:
           name: 'Test installation on linux'
           command: |
@@ -88,7 +88,7 @@ jobs:
             echo $results | jq .
             status_num=$(echo $results | jq .status)
             [[ $status_num = 0 ]] && status="Passed" || status="Failed"
-            echo -e "$status [linux/<< parameters.cli >>/<< parameters.method >>]" >> /tmp/workspace/linux.<< parameters.cli >>.<< parameters.method >>.results.txt
+            echo -e "$status [linux/<< parameters.cli >>/<< parameters.method >> - $CIRCLE_BUILD_URL]" >> /tmp/workspace/linux.<< parameters.cli >>.<< parameters.method >>.results.txt
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
@@ -176,10 +176,10 @@ workflows:
           name: test-windows-sf-tarball
           cli: sf
           method: tarball
-      - test-windows-installation:
-          name: test-windows-sfdx-tarball
-          cli: sfdx
-          method: tarball
+      # - test-windows-installation:
+      #     name: test-windows-sfdx-tarball
+      #     cli: sfdx
+      #     method: tarball
 
       - test-linux-installation:
           name: test-linux-sf-npm
@@ -209,7 +209,7 @@ workflows:
             - test-windows-sf-installer
             - test-windows-sfdx-installer
             - test-windows-sf-tarball
-            - test-windows-sfdx-tarball
+            # - test-windows-sfdx-tarball
             - test-windows-sf-npm
             - test-windows-sfdx-npm
             - test-linux-sf-tarball
