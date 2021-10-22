@@ -21,7 +21,7 @@ jobs:
       - jq/install
       - attach_workspace:
           at: /tmp/workspace
-      - run: npm install -g @salesforce/plugin-release-management@test
+      - run: npm install -g @salesforce/plugin-release-management@latest
       - run:
           name: 'Test installation on macos'
           command: |
@@ -51,7 +51,7 @@ jobs:
     steps:
       - attach_workspace:
           at: C:\tmp\workspace\
-      - run: npm install -g @salesforce/plugin-release-management@test
+      - run: npm install -g @salesforce/plugin-release-management@latest
       - run:
           name: 'Test installation on windows'
           command: |
@@ -80,7 +80,7 @@ jobs:
       - jq/install
       - attach_workspace:
           at: /tmp/workspace
-      - run: npm install -g @salesforce/plugin-release-management@test
+      - run: npm install -g @salesforce/plugin-release-management@latest
       - run:
           name: 'Test installation on linux'
           command: |
