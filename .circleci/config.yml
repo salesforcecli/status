@@ -23,7 +23,7 @@ jobs:
           at: /tmp/workspace
       - run: npm install -g @salesforce/plugin-release-management@latest
       - run:
-          name: 'Test installation on macos'
+          name: Test installation on macos
           command: |
             results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json)
             echo $results | jq .
@@ -53,7 +53,7 @@ jobs:
           at: C:\tmp\workspace\
       - run: npm install -g @salesforce/plugin-release-management@latest
       - run:
-          name: 'Test installation on windows'
+          name: Test installation on windows
           command: |
             $result = sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json | ConvertFrom-Json
             echo $result | ConvertTo-Json
@@ -82,7 +82,7 @@ jobs:
           at: /tmp/workspace
       - run: npm install -g @salesforce/plugin-release-management@latest
       - run:
-          name: 'Test installation on linux'
+          name: Test installation on linux
           command: |
             results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json)
             echo $results | jq .
@@ -101,7 +101,12 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run:
-          name: Search for test failures
+          name: Install l2met-shuttle
+          command: |
+            git clone https://github.com/heroku/heroku-buildpack-l2met-shuttle.git
+            heroku-buildpack-l2met-shuttle/bin/compile .
+      - run:
+          name: Report test results
           command: |
             successes=$(sed -n -e '/^Passed/p' /tmp/workspace/*)
             echo "Successes:"
@@ -110,6 +115,16 @@ jobs:
             failures=$(sed -n -e '/^Failed/p' /tmp/workspace/*)
             echo "Failures:"
             echo "$failures"
+
+            echo "Sending metrics:"
+            # Passed [macos/sfdx/installer - https://circleci.com/gh/salesforcecli/status/925] -> count#platform-cli.macos.sfdx.installer.success=1
+            # Failed [macos/sfdx/installer - https://circleci.com/gh/salesforcecli/status/925] -> count#platform-cli.macos.sfdx.installer.fail=1
+            cat /tmp/workspace/* | while read line
+            do
+              base="platform-cli".$(echo $line | grep -oP '(?<=\[).*(?=\])' | cut -f1 -d"-" | tr '/' '.' | xargs)
+              [[ "$line" == *"Passed"* ]] && status="success" || status="fail"
+              heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "count#$base.$status=1"
+            done
 
             if [[ ! -z "$failures" ]]; then
               exit 1
@@ -202,10 +217,10 @@ workflows:
           requires:
             - test-macos-sf-installer
             - test-macos-sfdx-installer
-            - test-macos-sf-tarball
-            - test-macos-sfdx-tarball
             - test-macos-sf-npm
             - test-macos-sfdx-npm
+            - test-macos-sf-tarball
+            - test-macos-sfdx-tarball
             - test-windows-sf-installer
             - test-windows-sfdx-installer
             - test-windows-sf-tarball
