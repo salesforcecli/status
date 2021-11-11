@@ -191,10 +191,10 @@ workflows:
           name: test-windows-sf-tarball
           cli: sf
           method: tarball
-      # - test-windows-installation:
-      #     name: test-windows-sfdx-tarball
-      #     cli: sfdx
-      #     method: tarball
+      - test-windows-installation:
+          name: test-windows-sfdx-tarball
+          cli: sfdx
+          method: tarball
 
       - test-linux-installation:
           name: test-linux-sf-npm
@@ -224,7 +224,7 @@ workflows:
             - test-windows-sf-installer
             - test-windows-sfdx-installer
             - test-windows-sf-tarball
-            # - test-windows-sfdx-tarball
+            - test-windows-sfdx-tarball
             - test-windows-sf-npm
             - test-windows-sfdx-npm
             - test-linux-sf-tarball
