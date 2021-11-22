@@ -4,17 +4,53 @@ orbs:
   slack: circleci/slack@3.4.2
   jq: circleci/jq@2
 
+only-main: &only-main
+  filters:
+    branches:
+      only:
+        - main
+
+matrix-params: &matrix-params
+  cli: [sf, sfdx]
+  channel: [stable, stable-rc]
+
+installer-matrix: &installer-matrix
+  matrix:
+    parameters:
+      <<: *matrix-params
+      method: [installer]
+
+npm-matrix: &npm-matrix
+  matrix:
+    parameters:
+      <<: *matrix-params
+      method: [npm]
+
+tarball-matrix: &tarball-matrix
+  matrix:
+    parameters:
+      <<: *matrix-params
+      method: [tarball]
+
+install-parameters: &parameters
+  parameters:
+    method:
+      description: installation method
+      type: enum
+      enum: ['tarball', 'npm', 'installer']
+    cli:
+      description: cli to test
+      type: enum
+      enum: ['sf', 'sfdx']
+    channel:
+      description: channel to test
+      type: enum
+      enum: ['stable', 'stable-rc']
+      default: 'stable'
+
 jobs:
   test-macos-installation:
-    parameters:
-        method:
-          description: installation method
-          type: enum
-          enum: ['tarball', 'npm', 'installer']
-        cli:
-          description: cli to test
-          type: enum
-          enum: ['sf', 'sfdx']
+    <<: *parameters
     macos:
       xcode: 12.5.1
     steps:
@@ -25,26 +61,18 @@ jobs:
       - run:
           name: Test installation on macos
           command: |
-            results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json)
+            results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>> --json)
             echo $results | jq .
             status_num=$(echo $results | jq .status)
             [[ $status_num = 0 ]] && status="Passed" || status="Failed"
-            echo -e "$status [macos/<< parameters.cli >>/<< parameters.method >> - $CIRCLE_BUILD_URL]" >> /tmp/workspace/macos.<< parameters.cli >>.<< parameters.method >>.results.txt
+            echo -e "$status [<< parameters.cli >>/<< parameters.channel >>/<< parameters.method >>/macos | $CIRCLE_BUILD_URL]" >> /tmp/workspace/macos.<< parameters.cli >>.<< parameters.channel >>.<< parameters.method >>.results.txt
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
-            - macos.<< parameters.cli >>.<< parameters.method >>.results.txt
+            - macos.<< parameters.cli >>.<< parameters.channel>>.<< parameters.method >>.results.txt
 
   test-windows-installation:
-    parameters:
-      method:
-        description: installation method
-        type: enum
-        enum: ['tarball', 'npm', 'installer']
-      cli:
-        description: cli to test
-        type: enum
-        enum: ['sf', 'sfdx']
+    <<: *parameters
     executor:
       name: win/default
       size: xlarge
@@ -55,25 +83,17 @@ jobs:
       - run:
           name: Test installation on windows
           command: |
-            $result = sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json | ConvertFrom-Json
+            $result = sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>> --json | ConvertFrom-Json
             echo $result | ConvertTo-Json
             $status = if ($result.status -eq 0) { "Passed" } else { "Failed" }
-            Add-Content -Path C:\tmp\workspace\windows.<< parameters.cli >>.<< parameters.method >>.results.txt -Value "$status [windows/<< parameters.cli >>/<< parameters.method >> - $env:CIRCLE_BUILD_URL]" -PassThru
+            Add-Content -Path C:\tmp\workspace\windows.<< parameters.cli >>.<< parameters.channel >>.<< parameters.method >>.results.txt -Value "$status [<< parameters.cli >>/<< parameters.channel >>/<< parameters.method >>/windows | $env:CIRCLE_BUILD_URL]" -PassThru
       - persist_to_workspace:
           root: C:\tmp\workspace\
           paths:
-            - ./windows.<< parameters.cli >>.<< parameters.method >>.results.txt
+            - ./windows.<< parameters.cli >>.<< parameters.channel>>.<< parameters.method >>.results.txt
 
   test-linux-installation:
-    parameters:
-      method:
-        description: installation method
-        type: enum
-        enum: ['tarball', 'npm', 'installer']
-      cli:
-        description: cli to test
-        type: enum
-        enum: ['sf', 'sfdx']
+    <<: *parameters
     docker:
       - image: node:lts
     steps:
@@ -84,15 +104,15 @@ jobs:
       - run:
           name: Test installation on linux
           command: |
-            results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --json)
+            results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>> --json)
             echo $results | jq .
             status_num=$(echo $results | jq .status)
             [[ $status_num = 0 ]] && status="Passed" || status="Failed"
-            echo -e "$status [linux/<< parameters.cli >>/<< parameters.method >> - $CIRCLE_BUILD_URL]" >> /tmp/workspace/linux.<< parameters.cli >>.<< parameters.method >>.results.txt
+            echo -e "$status [<< parameters.cli >>/<< parameters.channel >>/<< parameters.method >>/linux | $CIRCLE_BUILD_URL]" >> /tmp/workspace/linux.<< parameters.cli >>.<< parameters.channel >>.<< parameters.method >>.results.txt
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
-            - linux.<< parameters.cli >>.<< parameters.method >>.results.txt
+            - linux.<< parameters.cli >>.<< parameters.channel>>.<< parameters.method >>.results.txt
 
   examine-results:
     docker:
@@ -117,11 +137,11 @@ jobs:
             echo "$failures"
 
             echo "Sending metrics:"
-            # Passed [macos/sfdx/installer - https://circleci.com/gh/salesforcecli/status/925] -> count#platform-cli.macos.sfdx.installer.success=1
-            # Failed [macos/sfdx/installer - https://circleci.com/gh/salesforcecli/status/925] -> count#platform-cli.macos.sfdx.installer.fail=1
+            # Passed [sfdx/stable-rc/installer/macos - https://circleci.com/gh/salesforcecli/status/925] -> count#platform-cli.sfdx.stable-rc.installer.macos.success=1
+            # Failed [sfdx/stable-rc/installer/macos - https://circleci.com/gh/salesforcecli/status/925] -> count#platform-cli.sfdx.stable-rc.installer.macos.fail=1
             cat /tmp/workspace/* | while read line
             do
-              base="platform-cli".$(echo $line | grep -oP '(?<=\[).*(?=\])' | cut -f1 -d"-" | tr '/' '.' | xargs)
+              base="platform-cli".$(echo $line | grep -oP '(?<=\[).*(?=\])' | cut -f1 -d"|" | tr '/' '.' | xargs)
               [[ "$line" == *"Passed"* ]] && status="success" || status="fail"
               heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "count#$base.$status=1"
             done
@@ -136,98 +156,55 @@ jobs:
 
 workflows:
   version: 2
-  installation-test:
+  installers:
     triggers:
       - schedule:
           # Everyday at 10am Mountain Time
           cron: 0 16 * * *
-          filters:
-            branches:
-              only:
-                - main
+          <<: *only-main
     jobs:
       - test-macos-installation:
-          name: test-macos-sf-installer
-          cli: sf
-          method: installer
-      - test-macos-installation:
-          name: test-macos-sfdx-installer
-          cli: sfdx
-          method: installer
-      - test-macos-installation:
-          name: test-macos-sf-npm
-          cli: sf
-          method: npm
-      - test-macos-installation:
-          name: test-macos-sfdx-npm
-          cli: sfdx
-          method: npm
-      - test-macos-installation:
-          name: test-macos-sf-tarball
-          cli: sf
-          method: tarball
-      - test-macos-installation:
-          name: test-macos-sfdx-tarball
-          cli: sfdx
-          method: tarball
-
+          <<: *installer-matrix
       - test-windows-installation:
-          name: test-windows-sf-installer
-          cli: sf
-          method: installer
-      - test-windows-installation:
-          name: test-windows-sfdx-installer
-          cli: sfdx
-          method: installer
-      - test-windows-installation:
-          name: test-windows-sf-npm
-          cli: sf
-          method: npm
-      - test-windows-installation:
-          name: test-windows-sfdx-npm
-          cli: sfdx
-          method: npm
-      - test-windows-installation:
-          name: test-windows-sf-tarball
-          cli: sf
-          method: tarball
-      - test-windows-installation:
-          name: test-windows-sfdx-tarball
-          cli: sfdx
-          method: tarball
-
-      - test-linux-installation:
-          name: test-linux-sf-npm
-          cli: sf
-          method: npm
-      - test-linux-installation:
-          name: test-linux-sfdx-npm
-          cli: sfdx
-          method: npm
-      - test-linux-installation:
-          name: test-linux-sf-tarball
-          cli: sf
-          method: tarball
-      - test-linux-installation:
-          name: test-linux-sfdx-tarball
-          cli: sfdx
-          method: tarball
-
+          <<: *installer-matrix
       - examine-results:
           requires:
-            - test-macos-sf-installer
-            - test-macos-sfdx-installer
-            - test-macos-sf-npm
-            - test-macos-sfdx-npm
-            - test-macos-sf-tarball
-            - test-macos-sfdx-tarball
-            - test-windows-sf-installer
-            - test-windows-sfdx-installer
-            - test-windows-sf-tarball
-            - test-windows-sfdx-tarball
-            - test-windows-sf-npm
-            - test-windows-sfdx-npm
-            - test-linux-sf-tarball
-            - test-linux-sfdx-tarball
-            - test-linux-sf-npm
-            - test-linux-sfdx-npm
+            - test-macos-installation
+            - test-windows-installation
+  npm:
+    triggers:
+      - schedule:
+          # Everyday at 10am Mountain Time
+          cron: 0 16 * * *
+          <<: *only-main
+    jobs:
+      - test-macos-installation:
+          <<: *npm-matrix
+      - test-windows-installation:
+          <<: *npm-matrix
+      - test-linux-installation:
+          <<: *npm-matrix
+      - examine-results:
+          requires:
+            - test-macos-installation
+            - test-windows-installation
+            - test-linux-installation
+
+  tarballs:
+    triggers:
+      - schedule:
+          # Everyday at 10am Mountain Time
+          cron: 0 16 * * *
+          <<: *only-main
+    jobs:
+      - test-macos-installation:
+          <<: *tarball-matrix
+      - test-windows-installation:
+          <<: *tarball-matrix
+      - test-linux-installation:
+          <<: *tarball-matrix
+      - examine-results:
+          requires:
+            - test-macos-installation
+            - test-windows-installation
+            - test-linux-installation
