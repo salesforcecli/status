@@ -272,7 +272,17 @@
         "type": "library"
       }
     ]
-  },{
+  },
+  {
+    "url": "https://github.com/forcedotcom/source-tracking",
+    "packages": [
+      {
+        "name": "@salesforce/source-tracking",
+        "type": "library"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/forcedotcom/telemetry",
     "packages": [
       {
@@ -292,7 +302,9 @@
     "private": true
   },
   {
-    "types": ["orb"],
+    "types": [
+      "orb"
+    ],
     "url": "https://github.com/forcedotcom/npm-release-management-orb",
     "packages": [
       {
