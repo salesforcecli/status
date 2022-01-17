@@ -1,14 +1,9 @@
 version: 2.1
 orbs:
+  release-management: salesforce/npm-release-management@4
   win: circleci/windows@2
   slack: circleci/slack@3.4.2
   jq: circleci/jq@2
-
-only-main: &only-main
-  filters:
-    branches:
-      only:
-        - main
 
 matrix-params: &matrix-params
   cli: [sf, sfdx]
@@ -47,6 +42,42 @@ install-parameters: &parameters
       type: enum
       enum: ['stable', 'stable-rc']
       default: 'stable'
+
+parameters:
+  run-auto-workflows:
+    description: >
+      Boolean that controls when a workflow would run.
+
+      It is used to gate which workflows should run when github events occur.
+
+      This parameter is used by automation to determine if a workflow will run
+      within a pipeline.
+    default: true
+    type: boolean
+  run-installers:
+    description: >
+      Boolean that controls when `installers` will run
+
+      This parameter is used by an scheduled trigger to determine if the
+      `installers` workflow will run.
+    type: boolean
+    default: false
+  run-npm:
+    description: >
+      Boolean that controls when `npm` will run
+
+      This parameter is used by an scheduled trigger to determine if the
+      `npm` workflow will run.
+    type: boolean
+    default: false
+  run-tarballs:
+    description: >
+      Boolean that controls when `tarballs` will run
+
+      This parameter is used by an scheduled trigger to determine if the
+      `tarballs` workflow will run.
+    type: boolean
+    default: false
 
 jobs:
   test-macos-installation:
@@ -158,11 +189,16 @@ jobs:
 
 workflows:
   version: 2
+  validate-pr:
+    when: << pipeline.parameters.run-auto-workflows >>
+    jobs:
+      - release-management/validate-pr:
+          filters:
+            branches:
+              ignore: main
+
   installers:
-    triggers:
-      - schedule:
-          cron: 0 * * * *
-          <<: *only-main
+    when: << pipeline.parameters.run-installers >>
     jobs:
       - test-macos-installation:
           <<: *installer-matrix
@@ -173,10 +209,7 @@ workflows:
             - test-macos-installation
             - test-windows-installation
   npm:
-    triggers:
-      - schedule:
-          cron: 0 * * * *
-          <<: *only-main
+    when: << pipeline.parameters.run-npm >>
     jobs:
       - test-macos-installation:
           <<: *npm-matrix
@@ -191,10 +224,7 @@ workflows:
             - test-linux-installation
 
   tarballs:
-    triggers:
-      - schedule:
-          cron: 0 * * * *
-          <<: *only-main
+    when: << pipeline.parameters.run-tarballs >>
     jobs:
       - test-macos-installation:
           <<: *tarball-matrix
