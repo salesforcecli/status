@@ -61,9 +61,8 @@ jobs:
       - run:
           name: Test installation on macos
           command: |
-            results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>> --json)
-            echo $results | jq .
-            status_num=$(echo $results | jq .status)
+            sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>>
+            status_num=$(jq .status test-results.json)
             [[ $status_num = 0 ]] && status="Passed" || status="Failed"
             echo -e "$status [<< parameters.cli >>/<< parameters.channel >>/<< parameters.method >>/macos | $CIRCLE_BUILD_URL]" >> /tmp/workspace/macos.<< parameters.cli >>.<< parameters.channel >>.<< parameters.method >>.results.txt
       - persist_to_workspace:
@@ -83,8 +82,12 @@ jobs:
       - run:
           name: Test installation on windows
           command: |
-            $result = sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>> --json | ConvertFrom-Json
-            echo $result | ConvertTo-Json
+            sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>>
+
+            # Sometimes node doesn't like to exit when running in CI.
+            Get-Process node -ErrorAction SilentlyContinue | Stop-Process -PassThru
+
+            $result = Get-Content 'test-results.json' | Out-String | ConvertFrom-Json
             $status = if ($result.status -eq 0) { "Passed" } else { "Failed" }
             Add-Content -Path C:\tmp\workspace\windows.<< parameters.cli >>.<< parameters.channel >>.<< parameters.method >>.results.txt -Value "$status [<< parameters.cli >>/<< parameters.channel >>/<< parameters.method >>/windows | $env:CIRCLE_BUILD_URL]" -PassThru
       - persist_to_workspace:
@@ -104,9 +107,8 @@ jobs:
       - run:
           name: Test installation on linux
           command: |
-            results=$(sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>> --json)
-            echo $results | jq .
-            status_num=$(echo $results | jq .status)
+            sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>>
+            status_num=$(jq .status test-results.json)
             [[ $status_num = 0 ]] && status="Passed" || status="Failed"
             echo -e "$status [<< parameters.cli >>/<< parameters.channel >>/<< parameters.method >>/linux | $CIRCLE_BUILD_URL]" >> /tmp/workspace/linux.<< parameters.cli >>.<< parameters.channel >>.<< parameters.method >>.results.txt
       - persist_to_workspace:
