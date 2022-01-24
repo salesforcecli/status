@@ -94,7 +94,7 @@ jobs:
           command: |
             sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>>
             status_num=$(jq .status test-results.json)
-            [[ $status_num = 0 ]] && status="Passed" || status="Failed"
+            [[ $status_num = 0 ]] && status="Failed" || status="Failed"
             echo -e "$status [<< parameters.cli >>/<< parameters.channel >>/<< parameters.method >>/macos | $CIRCLE_BUILD_URL]" >> /tmp/workspace/macos.<< parameters.cli >>.<< parameters.channel >>.<< parameters.method >>.results.txt
       - persist_to_workspace:
           root: /tmp/workspace
@@ -119,7 +119,7 @@ jobs:
             Get-Process node -ErrorAction SilentlyContinue | Stop-Process -PassThru
 
             $result = Get-Content 'test-results.json' | Out-String | ConvertFrom-Json
-            $status = if ($result.status -eq 0) { "Passed" } else { "Failed" }
+            $status = if ($result.status -eq 0) { "Failed" } else { "Failed" }
             Add-Content -Path C:\tmp\workspace\windows.<< parameters.cli >>.<< parameters.channel >>.<< parameters.method >>.results.txt -Value "$status [<< parameters.cli >>/<< parameters.channel >>/<< parameters.method >>/windows | $env:CIRCLE_BUILD_URL]" -PassThru
       - persist_to_workspace:
           root: C:\tmp\workspace\
@@ -140,7 +140,7 @@ jobs:
           command: |
             sf-release cli:install:test --cli << parameters.cli >> --method << parameters.method >> --channel << parameters.channel>>
             status_num=$(jq .status test-results.json)
-            [[ $status_num = 0 ]] && status="Passed" || status="Failed"
+            [[ $status_num = 0 ]] && status="Failed" || status="Failed"
             echo -e "$status [<< parameters.cli >>/<< parameters.channel >>/<< parameters.method >>/linux | $CIRCLE_BUILD_URL]" >> /tmp/workspace/linux.<< parameters.cli >>.<< parameters.channel >>.<< parameters.method >>.results.txt
       - persist_to_workspace:
           root: /tmp/workspace
