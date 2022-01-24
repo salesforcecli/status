@@ -170,13 +170,21 @@ jobs:
             echo "$failures"
 
             echo "Sending metrics:"
-            # Passed [sfdx/stable-rc/installer/macos - https://circleci.com/gh/salesforcecli/status/925] -> count#platform-cli.sfdx.stable-rc.installer.macos.success=1
-            # Failed [sfdx/stable-rc/installer/macos - https://circleci.com/gh/salesforcecli/status/925] -> count#platform-cli.sfdx.stable-rc.installer.macos.fail=1
+            
+            # The while loop below retrieves the files in /tmp/workspace that were placed there by the test-*-installation jobs and
+            #   parses their name and content to create and send the metrics using l2met-shuttle.
+            # The name of the file is used to construct the metric
+            #   Examples:
+            #     sfdx/stable-rc/installer/macos -> count#platform-cli.sfdx.stable-rc.installer.macos.success
+            #     sf/stable/npm/windows -> count#platform-cli.sf.stable.npm.windows.success
+            # And the content of the file is used to define the value
+            #   "Passed" -> count#platform-cli.sfdx.stable-rc.installer.macos.success=1
+            #   "Failed" -> count#platform-cli.sfdx.stable-rc.installer.macos.success=0
             cat /tmp/workspace/* | while read line
             do
               base="platform-cli".$(echo $line | grep -oP '(?<=\[).*(?=\])' | cut -f1 -d"|" | tr '/' '.' | xargs)
-              [[ "$line" == *"Passed"* ]] && status="success" || status="fail"
-              heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "count#$base.$status=1"
+              [[ "$line" == *"Passed"* ]] && status="1" || status="0"
+              heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "count#$base.success=$status"
             done
 
             if [[ ! -z "$failures" ]]; then
