@@ -246,6 +246,15 @@
     "supportsReleases": false
   },
   {
+    "url": "https://github.com/forcedotcom/change-case-management",
+    "packages": [
+      {
+        "name": "@salesforce/change-case-management",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/forcedotcom/kit",
     "packages": [
       {
