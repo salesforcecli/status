@@ -54,6 +54,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-info",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-info",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-custom-metadata",
     "packages": [
       {
