@@ -100,6 +100,7 @@ jobs:
           root: /tmp/workspace
           paths:
             - macos.<< parameters.cli >>.<< parameters.channel>>.<< parameters.method >>.results.txt
+    context: AWS
 
   test-windows-installation:
     <<: *parameters
@@ -125,6 +126,7 @@ jobs:
           root: C:\tmp\workspace\
           paths:
             - ./windows.<< parameters.cli >>.<< parameters.channel>>.<< parameters.method >>.results.txt
+    context: AWS
 
   test-linux-installation:
     <<: *parameters
@@ -146,6 +148,7 @@ jobs:
           root: /tmp/workspace
           paths:
             - linux.<< parameters.cli >>.<< parameters.channel>>.<< parameters.method >>.results.txt
+    context: AWS
 
   examine-results:
     docker:
@@ -170,7 +173,7 @@ jobs:
             echo "$failures"
 
             echo "Sending metrics:"
-            
+
             # The while loop below retrieves the files in /tmp/workspace that were placed there by the test-*-installation jobs and
             #   parses their name and content to create and send the metrics using l2met-shuttle.
             # The name of the file is used to construct the metric
@@ -194,6 +197,7 @@ jobs:
           channel: 'cli-team-alerts'
           fail_only: true
           failure_message: 'CLI installation test failed. See examine-results job for more info.'
+          context: slack
 
 workflows:
   version: 2
