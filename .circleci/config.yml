@@ -10,18 +10,21 @@ matrix-params: &matrix-params
   channel: [stable, stable-rc]
 
 installer-matrix: &installer-matrix
+  context: AWS
   matrix:
     parameters:
       <<: *matrix-params
       method: [installer]
 
 npm-matrix: &npm-matrix
+  context: AWS
   matrix:
     parameters:
       <<: *matrix-params
       method: [npm]
 
 tarball-matrix: &tarball-matrix
+  context: AWS
   matrix:
     parameters:
       <<: *matrix-params
@@ -100,7 +103,6 @@ jobs:
           root: /tmp/workspace
           paths:
             - macos.<< parameters.cli >>.<< parameters.channel>>.<< parameters.method >>.results.txt
-    context: AWS
 
   test-windows-installation:
     <<: *parameters
@@ -126,7 +128,6 @@ jobs:
           root: C:\tmp\workspace\
           paths:
             - ./windows.<< parameters.cli >>.<< parameters.channel>>.<< parameters.method >>.results.txt
-    context: AWS
 
   test-linux-installation:
     <<: *parameters
@@ -148,7 +149,6 @@ jobs:
           root: /tmp/workspace
           paths:
             - linux.<< parameters.cli >>.<< parameters.channel>>.<< parameters.method >>.results.txt
-    context: AWS
 
   examine-results:
     docker:
@@ -197,7 +197,6 @@ jobs:
           channel: 'cli-team-alerts'
           fail_only: true
           failure_message: 'CLI installation test failed. See examine-results job for more info.'
-          context: slack
 
 workflows:
   version: 2
@@ -217,6 +216,7 @@ workflows:
       - test-windows-installation:
           <<: *installer-matrix
       - examine-results:
+          context: slack
           requires:
             - test-macos-installation
             - test-windows-installation
@@ -230,6 +230,7 @@ workflows:
       - test-linux-installation:
           <<: *npm-matrix
       - examine-results:
+          context: slack
           requires:
             - test-macos-installation
             - test-windows-installation
@@ -245,6 +246,7 @@ workflows:
       - test-linux-installation:
           <<: *tarball-matrix
       - examine-results:
+          context: slack
           requires:
             - test-macos-installation
             - test-windows-installation
