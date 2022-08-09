@@ -91,7 +91,7 @@ jobs:
       - jq/install
       - attach_workspace:
           at: /tmp/workspace
-      - run: npm install -g @salesforce/plugin-release-management@latest
+      - run: npm install -g @salesforce/plugin-release-management@2
       - run:
           name: Test installation on macos
           command: |
