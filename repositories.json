@@ -154,6 +154,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-settings",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-settings",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-source",
     "packages": [
       {
@@ -320,9 +329,7 @@
     "private": true
   },
   {
-    "types": [
-      "orb"
-    ],
+    "types": ["orb"],
     "url": "https://github.com/forcedotcom/npm-release-management-orb",
     "packages": [
       {
