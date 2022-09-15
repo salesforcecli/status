@@ -50,25 +50,21 @@ jobs:
         uses: ASzc/change-string-case-action@0bb41b609de8e18205c8c2c586c9b23553f2c08e
         with:
           string: ${{ runner.os }}
+
       - run: sf-release cli:install:test --cli ${{ inputs.cli}} --method ${{ inputs.method }} --channel ${{ inputs.channel }}
         continue-on-error: true
 
       - if: steps.lowercaseOS.outputs.lowercase != 'windows'
         run: |
           echo "status is $(jq .status test-results.json)"
-          echo "::set-output name=status::$(jq .status test-results.json)"
+          echo "::set-output name=metricValue::$(jq .status test-results.json)"
         continue-on-error: true
 
       - if: steps.lowercaseOS.outputs.lowercase == 'windows'
         run: |
           $result = Get-Content 'test-results.json' | Out-String | ConvertFrom-Json
           $status = if ($result.status -eq 0) { "Passed" } else { "Failed" }
-          echo "::set-output name=status::$status"
+          echo "::set-output name=metricValue::$status"
+          echo "status is $status"
         shell: pwsh
         continue-on-error: true
-
-      - uses: actions/upload-artifact@v3
-        with:
-          # same as job name
-          name: ${{ runner.os }}.${{ inputs.cli }}.${{ inputs.channel }}.${{ inputs.method }}
-          path: test-results.json
