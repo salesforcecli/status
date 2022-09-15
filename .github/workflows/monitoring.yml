@@ -1,6 +1,5 @@
 on:
-  push:
-    branches: [sm/gha]
+  workflow_dispatch:
   schedule:
     - cron: 7 4 * * *
 jobs:
