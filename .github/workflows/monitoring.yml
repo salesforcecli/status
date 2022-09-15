@@ -15,6 +15,6 @@ jobs:
     with:
       method: tarball
       cli: ${{ matrix.cli }}
-      channel: latest
+      channel: stable
       runs-on: ${{ matrix.runs-on }}
     secrets: inherit
