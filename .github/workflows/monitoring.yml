@@ -13,7 +13,7 @@ jobs:
         method: [tarball, npm, installer]
         channel: [stable, stable-rc]
         exclude:
-          - os: ubuntu-latest
+          - runs-on: ubuntu-latest
             method: installer
     uses: ./.github/workflows/install.yml
     with:
