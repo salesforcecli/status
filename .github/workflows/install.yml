@@ -24,10 +24,10 @@ on:
         description: platform-cli (do not change)
         default: platform-cli
     outputs:
-      name:
+      metricName:
         description: name of the job
         value: ${{ jobs.install.outputs.name }}
-      secondword:
+      metricValue:
         description: status (0 for pass, 1 for fail)
         value: ${{ jobs.install.outputs.status }}
 
@@ -38,7 +38,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
     outputs:
       metricName: count#${{inputs.base}}.${{ inputs.runs-cli }}.${{ inputs.channel }}.${{ inputs.method }}.${{ steps.lowercaseOS.outputs.lowercase }}.success
-      metricValue: ${{ steps.step2.outputs.secondword }}
+      metricValue: ${{ steps.posix.outputs.metricValue || steps.windows.outputs.metricValue }}
 
     runs-on: ${{ inputs.runs-on }}
     steps:
@@ -55,12 +55,14 @@ jobs:
         continue-on-error: true
 
       - if: steps.lowercaseOS.outputs.lowercase != 'windows'
+        id: posix
         run: |
           echo "status is $(jq .status test-results.json)"
           echo "::set-output name=metricValue::$(jq .status test-results.json)"
         continue-on-error: true
 
       - if: steps.lowercaseOS.outputs.lowercase == 'windows'
+        id: windows
         run: |
           $result = Get-Content 'test-results.json' | Out-String | ConvertFrom-Json
           $status = if ($result.status -eq 0) { "Passed" } else { "Failed" }

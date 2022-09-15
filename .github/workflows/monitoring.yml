@@ -8,8 +8,7 @@ jobs:
       matrix:
         # runs-on: [ubuntu-latest, windows-latest, macos-latest]
         runs-on: [ubuntu-latest]
-        # cli: [sfdx, sf]
-        cli: [sfdx]
+        cli: [sfdx, sf]
         # method: [tarball, npm, installer]
         method: [tarball]
         # channel: [stable, stable-rc]
