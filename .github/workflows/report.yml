@@ -21,3 +21,10 @@ jobs:
         if: ${{inputs.metricValue == 'Failed'}}
       - run: heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "${{ inputs.metricName }}=1"
         if: ${{inputs.metricValue == 'Passed'}}
+
+      - name: fail the job
+        if: ${{inputs.metricValue == 'Failed'}}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('${{ inputs.metricName }}')

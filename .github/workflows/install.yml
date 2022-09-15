@@ -74,18 +74,3 @@ jobs:
       metricName: ${{ needs.install.outputs.metricName }}
       metricValue: ${{ needs.install.outputs.metricValue }}
     secrets: inherit
-
-  slack:
-    needs: [install]
-    if: ${{ needs.install.outputs.metricValue != 'Passed' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: slackapi/slack-github-action@v1.21.0
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.CLI_ALERTS_SLACK_WEBHOOK }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-        with:
-          payload: |
-            {
-              "text": "A READS monitoring job failed: metricName: ${{ needs.install.outputs.metricName }}"
-            }
