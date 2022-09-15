@@ -11,10 +11,11 @@ jobs:
         runs-on: [ubuntu-latest]
         cli: [sfdx, sf]
         method: [tarball, npm, installer]
+        channel: [stable, stable-rc]
     uses: ./.github/workflows/install.yml
     with:
-      method: tarball
+      method: ${{ matrix.method }}
       cli: ${{ matrix.cli }}
-      channel: stable
+      channel: ${{ matrix.channel }}
       runs-on: ${{ matrix.runs-on }}
     secrets: inherit
