@@ -77,7 +77,7 @@ jobs:
 
   slack:
     needs: [install]
-    if: ${{ needs.install.outputs.metricValue != 1 }}
+    if: ${{ needs.install.outputs.metricValue != 'Passed' }}
     runs-on: ubuntu-latest
     steps:
       - uses: slackapi/slack-github-action@v1.21.0
@@ -87,5 +87,5 @@ jobs:
         with:
           payload: |
             {
-              "text": "A READS monitoring job failed: metricName: ${{ needs.install.outputs.metricName }}
+              "text": "A READS monitoring job failed: metricName: ${{ needs.install.outputs.metricName }}"
             }
