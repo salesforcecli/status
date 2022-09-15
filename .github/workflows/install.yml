@@ -29,6 +29,9 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
       AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+    outputs:
+      metricName: count#${{inputs.base}}.${{ inputs.runs-cli }}.${{ inputs.channel }}.${{ inputs.method }}.${{ steps.lowercaseOS.outputs.lowercase }}.success
+      metricValue: ${{ steps.posix.outputs.metricValue || steps.windows.outputs.metricValue }}
 
     runs-on: ${{ inputs.runs-on }}
     steps:
@@ -61,7 +64,10 @@ jobs:
           echo "status is $status"
         shell: pwsh
         continue-on-error: true
-      - uses: ./.github/workflows/report.yml
-        with:
-          metricName: count#${{inputs.base}}.${{ inputs.runs-cli }}.${{ inputs.channel }}.${{ inputs.method }}.${{ steps.lowercaseOS.outputs.lowercase }}.success
-          metricValue: ${{ steps.posix.outputs.metricValue || steps.windows.outputs.metricValue }}
+  report:
+    needs: [install]
+    uses: ./.github/workflows/report.yml
+    with:
+      metricName: ${{ needs.install.outputs.metricName }}
+      metricValue: ${{ needs.install.outputs.metricValue }}
+    secrets: inherit

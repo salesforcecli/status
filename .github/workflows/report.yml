@@ -11,6 +11,8 @@ on:
 jobs:
   report:
     runs-on: ubuntu-latest
+    env:
+      L2MET_SHUTTLE_URL: ${{ secrets.L2MET_SHUTTLE_URL }}
     steps:
       - run: |
           git clone https://github.com/heroku/heroku-buildpack-l2met-shuttle.git
