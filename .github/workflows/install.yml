@@ -52,7 +52,9 @@ jobs:
         id: posix
         run: |
           echo "status is $(jq .status test-results.json)"
-          echo "::set-output name=metricValue::$(jq .status test-results.json)"
+          status_num=$(jq .status test-results.json)
+          [[ $status_num = 0 ]] && status="Passed" || status="Failed"
+          echo "::set-output name=metricValue::$status"
         continue-on-error: true
 
       - if: steps.lowercaseOS.outputs.lowercase == 'windows'
