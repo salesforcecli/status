@@ -18,6 +18,6 @@ jobs:
           git clone https://github.com/heroku/heroku-buildpack-l2met-shuttle.git
           heroku-buildpack-l2met-shuttle/bin/compile .
       - run: heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "${{ inputs.metricName }}=0"
-        if: ${{inputs.metricValue == "Failed"}}
+        if: ${{inputs.metricValue == Failed}}
       - run: heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "${{ inputs.metricName }}=1"
-        if: ${{inputs.metricValue == "Passed"}}
+        if: ${{inputs.metricValue == Passed}}
