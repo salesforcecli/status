@@ -4,9 +4,17 @@ on:
 
 jobs:
   check:
+    strategy:
+      fail-fast: false
+      matrix:
+        # runs-on: [ubuntu-latest, windows-latest, macos-latest]
+        runs-on: [ubuntu-latest]
+        cli: [sfdx, sf]
+        method: [tarball, npm, installer]
     uses: ./.github/workflows/install.yml
     with:
       method: tarball
-      cli: sfdx
+      cli: ${{ matrix.cli }}
       channel: latest
-      runs-on: ubuntu-latest
+      runs-on: ${{ matrix.runs-on }}
+    secrets: inherit
