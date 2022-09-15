@@ -7,10 +7,13 @@ jobs:
     strategy:
       matrix:
         # runs-on: [ubuntu-latest, windows-latest, macos-latest]
-        runs-on: [windows-latest, ubuntu-latest]
-        cli: [sfdx, sf]
-        method: [tarball, npm, installer]
-        channel: [stable, stable-rc]
+        runs-on: [ubuntu-latest]
+        # cli: [sfdx, sf]
+        cli: [sfdx]
+        # method: [tarball, npm, installer]
+        method: [tarball]
+        # channel: [stable, stable-rc]
+        channel: [stable]
         exclude:
           - runs-on: ubuntu-latest
             method: installer
