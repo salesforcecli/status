@@ -12,7 +12,7 @@ on:
       channel:
         description: channel to test ['stable', 'stable-rc']
         type: string
-        default: "stable"
+        default: stable
         required: false
       runs-on:
         description: runner name/label
@@ -70,5 +70,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           # same as job name
-          name: ${{ runner.os }}.${{ inputs.runs-cli }}.${{ inputs.channel }}.${{ inputs.method }}
+          name: ${{ runner.os }}.${{ inputs.cli }}.${{ inputs.channel }}.${{ inputs.method }}
           path: test-results.json
