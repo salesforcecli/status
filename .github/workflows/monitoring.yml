@@ -1,0 +1,12 @@
+on:
+  push:
+    branches: [sm/gha]
+
+jobs:
+  check:
+    uses: ./.github/workflows/install.yml
+    with:
+      method: tarball
+      cli: sfdx
+      channel: latest
+      run-on: ubuntu-latest
