@@ -26,10 +26,10 @@ on:
     outputs:
       metricName:
         description: name of the job
-        value: ${{ jobs.install.outputs.name }}
+        value: ${{ jobs.install.outputs.metricName }}
       metricValue:
         description: status (0 for pass, 1 for fail)
-        value: ${{ jobs.install.outputs.status }}
+        value: ${{ jobs.install.outputs.metricValue }}
 
 jobs:
   install:
