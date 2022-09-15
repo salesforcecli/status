@@ -38,7 +38,6 @@ jobs:
       metricValue: ${{ steps.step2.outputs.secondword }}
 
     runs-on: ${{ inputs.runs-on }}
-    name: ${{ runner.os }}.${{ inputs.runs-cli }}.${{ inputs.channel }}.${{ inputs.method }}
     steps:
       - uses: actions/setup-node@v3
         with:
