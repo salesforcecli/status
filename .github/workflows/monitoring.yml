@@ -12,6 +12,9 @@ jobs:
         cli: [sfdx, sf]
         method: [tarball, npm, installer]
         channel: [stable, stable-rc]
+        exclude:
+          - os: ubuntu-latest
+            method: installer
     uses: ./.github/workflows/install.yml
     with:
       method: ${{ matrix.method }}
