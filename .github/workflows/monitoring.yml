@@ -1,7 +1,8 @@
 on:
   push:
     branches: [sm/gha]
-
+  schedule:
+    - cron: 7 4 * * *
 jobs:
   check:
     strategy:

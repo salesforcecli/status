@@ -17,4 +17,4 @@ jobs:
       - run: |
           git clone https://github.com/heroku/heroku-buildpack-l2met-shuttle.git
           heroku-buildpack-l2met-shuttle/bin/compile .
-          heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "count#${{ inputs.metricName }}=${{ inputs.metricValue }}"
+          heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "${{ inputs.metricName }}=${{ inputs.metricValue }}"
