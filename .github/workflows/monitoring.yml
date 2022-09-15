@@ -25,23 +25,3 @@ jobs:
       channel: ${{ matrix.channel }}
       runs-on: ${{ matrix.runs-on }}
     secrets: inherit
-  report:
-    # strategy:
-    #   matrix:
-    #     # runs-on: [ubuntu-latest, windows-latest, macos-latest]
-    #     runs-on: [windows-latest, ubuntu-latest]
-    #     cli: [sfdx, sf]
-    #     method: [tarball, npm, installer]
-    #     channel: [stable, stable-rc]
-    #     exclude:
-    #       - runs-on: ubuntu-latest
-    #         method: installer
-    #   fail-fast: false
-    runs-on: ubuntu-latest
-    needs: check
-    steps:
-      - run: |
-          git clone https://github.com/heroku/heroku-buildpack-l2met-shuttle.git
-          heroku-buildpack-l2met-shuttle/bin/compile .
-          # heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "count#$base.success=$status"
-      - run: echo ${{ toJSON(needs.check) }}

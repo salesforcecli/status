@@ -1,0 +1,18 @@
+on:
+  workflow_call:
+    inputs:
+      metricName:
+        required: true
+        type: string
+      metricValue:
+        required: true
+        type: string
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          git clone https://github.com/heroku/heroku-buildpack-l2met-shuttle.git
+          heroku-buildpack-l2met-shuttle/bin/compile .
+          heroku-buildpack-l2met-shuttle/support/start-l2met-shuttle echo "count#${{ inputs.metricName }}=${{ inputs.metricValue }}"
