@@ -1,0 +1,76 @@
+on:
+  workflow_call:
+    inputs:
+      method:
+        description: installation method ['tarball', 'npm', 'installer']
+        type: string
+        required: true
+      cli:
+        description: cli to test ['sf', 'sfdx']
+        type: string
+        required: true
+      channel:
+        description: channel to test ['stable', 'stable-rc']
+        type: string
+        default: stable
+        required: false
+      runs-on:
+        description: runner name/label
+        type: string
+        required: true
+      base:
+        required: false
+        type: string
+        description: platform-cli (do not change)
+        default: platform-cli
+
+jobs:
+  install:
+    env:
+      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+    outputs:
+      metricName: count#${{inputs.base}}.${{ inputs.cli }}.${{ inputs.channel }}.${{ inputs.method }}.${{ steps.lowercaseOS.outputs.lowercase }}.success
+      metricValue: ${{ steps.posix.outputs.metricValue || steps.windows.outputs.metricValue }}
+
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - run: npm install -g @salesforce/plugin-release-management@latest
+      - id: lowercaseOS
+        uses: ASzc/change-string-case-action@0bb41b609de8e18205c8c2c586c9b23553f2c08e
+        with:
+          string: ${{ runner.os }}
+
+      - run: sf-release cli:install:test --cli ${{ inputs.cli}} --method ${{ inputs.method }} --channel ${{ inputs.channel }}
+        continue-on-error: true
+
+      - if: steps.lowercaseOS.outputs.lowercase != 'windows'
+        id: posix
+        run: |
+          echo "status is $(jq .status test-results.json)"
+          status_num=$(jq .status test-results.json)
+          [[ $status_num = 0 ]] && status="Passed" || status="Failed"
+          echo "::set-output name=metricValue::$status"
+        continue-on-error: true
+
+      - if: steps.lowercaseOS.outputs.lowercase == 'windows'
+        id: windows
+        run: |
+          $result = Get-Content 'test-results.json' | Out-String | ConvertFrom-Json
+          $status = if ($result.status -eq 0) { "Passed" } else { "Failed" }
+          echo "::set-output name=metricValue::$status"
+          echo "status is $status"
+        shell: pwsh
+        continue-on-error: true
+
+  report:
+    needs: [install]
+    uses: ./.github/workflows/report.yml
+    with:
+      metricName: ${{ needs.install.outputs.metricName }}
+      metricValue: ${{ needs.install.outputs.metricValue }}
+    secrets: inherit

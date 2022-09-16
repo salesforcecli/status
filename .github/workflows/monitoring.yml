@@ -1,0 +1,41 @@
+on:
+  push:
+    branches:
+      - sm/gha
+  workflow_dispatch:
+  schedule:
+    - cron: */50 * * * * # every 50 minutes
+jobs:
+  check:
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest, windows-latest, macos-latest]
+        cli: [sfdx, sf]
+        method: [tarball, npm, installer]
+        channel: [stable, stable-rc]
+        exclude:
+          - runs-on: ubuntu-latest
+            method: installer
+      fail-fast: false
+    uses: ./.github/workflows/install.yml
+    with:
+      method: ${{ matrix.method }}
+      cli: ${{ matrix.cli }}
+      channel: ${{ matrix.channel }}
+      runs-on: ${{ matrix.runs-on }}
+    secrets: inherit
+
+  slack:
+    needs: [check]
+    if: ${{ needs.check.result == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: slackapi/slack-github-action@v1.21.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.CLI_ALERTS_SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "text": "A READS monitoring job failed.  See https://github.com/salesforcecli/status/actions for more information"
+            }
