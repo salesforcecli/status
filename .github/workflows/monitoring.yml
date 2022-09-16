@@ -4,7 +4,7 @@ on:
       - sm/gha
   workflow_dispatch:
   schedule:
-    - cron: 7 4 * * *
+    - cron: */50 * * * * # every 50 minutes
 jobs:
   check:
     strategy:
