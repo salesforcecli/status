@@ -91,15 +91,6 @@
     ]
   },
   {
-    "url": "https://github.com/salesforcecli/plugin-deploy-retrieve-metadata",
-    "packages": [
-      {
-        "name": "@salesforce/plugin-deploy-retrieve-metadata",
-        "type": "plugin"
-      }
-    ]
-  },
-  {
     "url": "https://github.com/salesforcecli/plugin-env",
     "packages": [
       {
@@ -329,7 +320,9 @@
     "private": true
   },
   {
-    "types": ["orb"],
+    "types": [
+      "orb"
+    ],
     "url": "https://github.com/forcedotcom/npm-release-management-orb",
     "packages": [
       {
