@@ -127,6 +127,24 @@
     ]
   },
   {
+    "url": "https://github.com/forcedotcom/packaging",
+    "packages": [
+      {
+        "name": "@salesforce/packaging",
+        "type": "library"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/salesforcecli/plugin-packaging",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-packaging",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-release-management",
     "packages": [
       {
