@@ -28,7 +28,7 @@ jobs:
 
   slack:
     needs: [check]
-    if: ${{ needs.check.result == 'failure' }}
+    if: always() && needs.check.result == 'failure'
     runs-on: ubuntu-latest
     steps:
       - uses: slackapi/slack-github-action@v1.21.0
