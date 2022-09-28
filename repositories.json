@@ -349,5 +349,15 @@
       }
     ],
     "supportsReleases": false
+  },
+  {
+    "url": "https://github.com/salesforcecli/github-workflows",
+    "packages": [
+      {
+        "name": "salesforcecli/github-workflows",
+        "type": "GHA"
+      }
+    ],
+    "supportsReleases": false
   }
 ]
