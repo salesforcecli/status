@@ -127,6 +127,24 @@
     ]
   },
   {
+    "url": "https://github.com/forcedotcom/packaging",
+    "packages": [
+      {
+        "name": "@salesforce/packaging",
+        "type": "library"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/salesforcecli/plugin-packaging",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-packaging",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-release-management",
     "packages": [
       {
@@ -328,6 +346,16 @@
       {
         "name": "salesforce/npm-release-management",
         "type": "orb"
+      }
+    ],
+    "supportsReleases": false
+  },
+  {
+    "url": "https://github.com/salesforcecli/github-workflows",
+    "packages": [
+      {
+        "name": "salesforcecli/github-workflows",
+        "type": "GHA"
       }
     ],
     "supportsReleases": false
