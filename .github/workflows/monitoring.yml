@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   schedule:
     # every hour
-    - cron: 50 * * * * 
+    - cron: 50 4 * * * 
 jobs:
   check:
     strategy:
