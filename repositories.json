@@ -338,19 +338,6 @@
     "private": true
   },
   {
-    "types": [
-      "orb"
-    ],
-    "url": "https://github.com/forcedotcom/npm-release-management-orb",
-    "packages": [
-      {
-        "name": "salesforce/npm-release-management",
-        "type": "orb"
-      }
-    ],
-    "supportsReleases": false
-  },
-  {
     "url": "https://github.com/salesforcecli/github-workflows",
     "packages": [
       {
