@@ -29,7 +29,9 @@ function getTypeBadge(package) {
  * @param {name: string, type: 'package' | 'library' } package
  */
 function getPackageBadge(package) {
-  return `[![NPM](https://img.shields.io/npm/v/${package.name}.svg?label=${package.name})](https://www.npmjs.com/package/${package.name})`;
+  if(package.type !== 'GHA') {
+    return `[![NPM](https://img.shields.io/npm/v/${package.name}.svg?label=${package.name})](https://www.npmjs.com/package/${package.name})`;
+  }
 }
 
 for (const repo of list) {
