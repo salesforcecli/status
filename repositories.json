@@ -27,6 +27,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-apex",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-apex",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-auth",
     "packages": [
       {
@@ -69,8 +78,7 @@
         "name": "@salesforce/plugin-custom-metadata",
         "type": "plugin"
       }
-    ],
-    "private": true
+    ]
   },
   {
     "url": "https://github.com/salesforcecli/plugin-data",
@@ -190,6 +198,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-templates",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-templates",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-trust",
     "packages": [
       {
@@ -238,29 +255,19 @@
     "url": "https://github.com/forcedotcom/salesforcedx-apex",
     "packages": [
       {
-        "name": "@salesforce/plugin-apex",
-        "type": "plugin"
-      },
-      {
         "name": "@salesforce/apex-node",
         "type": "library"
       }
-    ],
-    "private": true
+    ]
   },
   {
     "url": "https://github.com/forcedotcom/salesforcedx-templates",
     "packages": [
       {
-        "name": "@salesforce/plugin-templates",
-        "type": "plugin"
-      },
-      {
         "name": "@salesforce/templates",
         "type": "library"
       }
-    ],
-    "supportsReleases": false
+    ]
   },
   {
     "url": "https://github.com/forcedotcom/sfdx-scanner",
@@ -269,8 +276,7 @@
         "name": "@salesforce/sfdx-scanner",
         "type": "plugin"
       }
-    ],
-    "supportsReleases": false
+    ]
   },
   {
     "url": "https://github.com/forcedotcom/change-case-management",
@@ -279,7 +285,8 @@
         "name": "@salesforce/change-case-management",
         "type": "plugin"
       }
-    ]
+    ],
+    "private": true
   },
   {
     "url": "https://github.com/forcedotcom/kit",
@@ -288,8 +295,7 @@
         "name": "@salesforce/kit",
         "type": "library"
       }
-    ],
-    "private": true
+    ]
   },
   {
     "url": "https://github.com/forcedotcom/sfdx-core",
@@ -334,8 +340,7 @@
         "name": "@salesforce/ts-types",
         "type": "library"
       }
-    ],
-    "private": true
+    ]
   },
   {
     "url": "https://github.com/salesforcecli/github-workflows",
