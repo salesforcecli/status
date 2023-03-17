@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: latest
+          node-version: lts/*
       - run: npm install -g @salesforce/plugin-release-management@latest
       - id: lowercaseOS
         uses: ASzc/change-string-case-action@0bb41b609de8e18205c8c2c586c9b23553f2c08e
