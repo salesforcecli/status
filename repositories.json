@@ -18,15 +18,6 @@
     ]
   },
   {
-    "url": "https://github.com/salesforcecli/plugin-alias",
-    "packages": [
-      {
-        "name": "@salesforce/plugin-alias",
-        "type": "plugin"
-      }
-    ]
-  },
-  {
     "url": "https://github.com/salesforcecli/plugin-apex",
     "packages": [
       {
@@ -40,15 +31,6 @@
     "packages": [
       {
         "name": "@salesforce/plugin-auth",
-        "type": "plugin"
-      }
-    ]
-  },
-  {
-    "url": "https://github.com/salesforcecli/plugin-config",
-    "packages": [
-      {
-        "name": "@salesforce/plugin-config",
         "type": "plugin"
       }
     ]
