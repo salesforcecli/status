@@ -54,7 +54,7 @@ jobs:
           echo "status is $(jq .status test-results.json)"
           status_num=$(jq .status test-results.json)
           [[ $status_num = 0 ]] && status="Passed" || status="Failed"
-          echo "::set-output name=metricValue::$status"
+          echo "{metricValue}={$status}" >> $GITHUB_OUTPUT
         continue-on-error: true
 
       - if: steps.lowercaseOS.outputs.lowercase == 'windows'
@@ -62,7 +62,7 @@ jobs:
         run: |
           $result = Get-Content 'test-results.json' | Out-String | ConvertFrom-Json
           $status = if ($result.status -eq 0) { "Passed" } else { "Failed" }
-          echo "::set-output name=metricValue::$status"
+          echo "{metricValue}={$status}" >> $GITHUB_OUTPUT
           echo "status is $status"
         shell: pwsh
         continue-on-error: true
