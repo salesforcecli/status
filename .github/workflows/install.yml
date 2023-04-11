@@ -39,7 +39,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: lts/*
-      - run: npm install -g @salesforce/plugin-release-management@latest
+      - uses: nick-fields/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd
+        with:
+          timeout_minutes: 60
+          retry_wait_seconds: 60
+          max_attempts: 5
+          command: npm install -g @salesforce/plugin-release-management@latest
       - id: lowercaseOS
         uses: ASzc/change-string-case-action@0bb41b609de8e18205c8c2c586c9b23553f2c08e
         with:
