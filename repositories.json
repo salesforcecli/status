@@ -162,6 +162,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-signups",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-signups",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-source",
     "packages": [
       {
