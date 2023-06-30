@@ -6,7 +6,7 @@ on:
         type: string
         required: true
       cli:
-        description: cli to test ['sf', 'sfdx']
+        description: cli to test ['sf']
         type: string
         required: true
       channel:
