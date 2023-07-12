@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         runs-on: [ubuntu-latest, windows-latest, macos-latest]
-        cli: [sfdx, sf]
+        cli: [sf]
         method: [tarball, npm, installer]
         channel: [stable, stable-rc]
         exclude:

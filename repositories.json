@@ -1,14 +1,5 @@
 [
   {
-    "url": "https://github.com/salesforcecli/sfdx-cli",
-    "packages": [
-      {
-        "name": "sfdx-cli",
-        "type": "aggregator"
-      }
-    ]
-  },
-  {
     "url": "https://github.com/salesforcecli/cli",
     "packages": [
       {
