@@ -162,6 +162,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-sobject",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-sobject",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-source",
     "packages": [
       {
@@ -211,15 +220,6 @@
     "packages": [
       {
         "name": "@salesforce/cli-plugins-testkit",
-        "type": "library"
-      }
-    ]
-  },
-  {
-    "url": "https://github.com/salesforcecli/command",
-    "packages": [
-      {
-        "name": "@salesforce/command",
         "type": "library"
       }
     ]
