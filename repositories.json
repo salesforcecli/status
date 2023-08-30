@@ -36,6 +36,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-devops-center",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-devops-center",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-info",
     "packages": [
       {
