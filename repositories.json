@@ -108,6 +108,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-marketplace",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-marketplace",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-org",
     "packages": [
       {
