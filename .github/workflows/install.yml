@@ -35,11 +35,11 @@ jobs:
 
     runs-on: ${{ inputs.runs-on }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - uses: nick-fields/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd
+      - uses: salesforcecli/github-workflows/.github/actions/retry@main
         with:
           timeout_minutes: 60
           retry_wait_seconds: 60
