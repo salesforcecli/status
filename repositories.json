@@ -352,6 +352,92 @@
     ]
   },
   {
+    "url": "https://github.com/forcedotcom/schemas",
+    "packages": [
+      {
+        "name": "@salesforce/schemas",
+        "type": "library"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/forcedotcom/ts-sinon",
+    "packages": [
+      {
+        "name": "@salesforce/ts-sinon",
+        "type": "library"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/salesforcecli/plugin-template-sf",
+    "supportsReleases": false,
+    "packages" : [{"type": "template"}]
+  },
+  {
+    "url": "https://github.com/salesforcecli/plugin-template-sf-external",
+    "supportsReleases": false,
+    "packages": [
+      {
+        "type": "template"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/forcedotcom/prettier-config",
+    "packages": [
+      {
+        "name": "@salesforce/prettier-config",
+        "type": "config"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/forcedotcom/eslint-config-salesforce",
+    "packages": [
+      {
+        "name": "eslint-config-salesforce",
+        "type": "config"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/forcedotcom/eslint-config-salesforce-license",
+    "packages": [
+      {
+        "name": "eslint-config-salesforce-license",
+        "type": "config"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/forcedotcom/dev-config",
+    "packages": [
+      {
+        "name": "@salesforce/dev-config",
+        "type": "config"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/forcedotcom/dev-scripts",
+    "packages": [
+      {
+        "name": "@salesforce/dev-scripts",
+        "type": "library"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/forcedotcom/eslint-config-salesforce-typescript",
+    "packages": [
+      {
+        "name": "eslint-config-salesforce-typescript",
+        "type": "config"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/github-workflows",
     "packages": [
       {
