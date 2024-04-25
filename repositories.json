@@ -252,6 +252,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/source-testkit",
+    "packages": [
+      {
+        "name": "@salesforce/source-testkit",
+        "type": "library"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/sf-plugins-core",
     "packages": [
       {
