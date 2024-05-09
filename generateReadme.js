@@ -29,6 +29,7 @@ const repoToTableRow = (repo) => {
 };
 
 const colorMap = new Map([
+  ['issues', 'white'],
   ['library', 'yellowgreen'],
   ['plugin', 'blue'],
   ['GHA', 'orange'],
