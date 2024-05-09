@@ -1,5 +1,14 @@
 [
   {
+    "url": "https://github.com/forcedotcom/cli",
+    "supportsReleases": false,
+    "packages": [
+      {
+        "type": "issues"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/cli",
     "packages": [
       {

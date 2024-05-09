@@ -8,6 +8,7 @@ A collection of [repositories](./repositories.json) used by the Salesforce CLI t
 
 | Repository | Type | Package | Released |
 |------------|:----:|---------|----------|
+| [forcedotcom/cli](https://github.com/forcedotcom/cli) | ![type](https://img.shields.io/badge/%20-issues-white) |  |  |
 | [salesforcecli/cli](https://github.com/salesforcecli/cli) | ![type](https://img.shields.io/badge/%20-aggregator-lightgrey) | [![NPM](https://img.shields.io/npm/v/@salesforce/cli.svg?label=@salesforce/cli)](https://www.npmjs.com/package/@salesforce/cli) | ![GitHub Release Date](https://img.shields.io/github/release-date/salesforcecli/cli?color=ffc16b&label=%20) |
 | [salesforcecli/plugin-apex](https://github.com/salesforcecli/plugin-apex) | ![type](https://img.shields.io/badge/%20-plugin-blue) | [![NPM](https://img.shields.io/npm/v/@salesforce/plugin-apex.svg?label=@salesforce/plugin-apex)](https://www.npmjs.com/package/@salesforce/plugin-apex) | ![GitHub Release Date](https://img.shields.io/github/release-date/salesforcecli/plugin-apex?color=ffc16b&label=%20) |
 | [salesforcecli/plugin-auth](https://github.com/salesforcecli/plugin-auth) | ![type](https://img.shields.io/badge/%20-plugin-blue) | [![NPM](https://img.shields.io/npm/v/@salesforce/plugin-auth.svg?label=@salesforce/plugin-auth)](https://www.npmjs.com/package/@salesforce/plugin-auth) | ![GitHub Release Date](https://img.shields.io/github/release-date/salesforcecli/plugin-auth?color=ffc16b&label=%20) |
