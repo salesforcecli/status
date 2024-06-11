@@ -31,7 +31,7 @@ jobs:
     if: always() && needs.check.result == 'failure'
     runs-on: ubuntu-latest
     steps:
-      - uses: slackapi/slack-github-action@v1.24.0
+      - uses: slackapi/slack-github-action@v1.26.0
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.CLI_ALERTS_SLACK_WEBHOOK }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
