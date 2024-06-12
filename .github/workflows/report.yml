@@ -24,7 +24,7 @@ jobs:
 
       - name: fail the job
         if: ${{inputs.metricValue == 'Failed'}}
-        uses: actions/github-script@v3
+        uses: actions/github-script@v7
         with:
           script: |
             core.setFailed('${{ inputs.metricName }}')
