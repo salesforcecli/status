@@ -27,6 +27,15 @@
     ]
   },
   {
+    "url": "https://github.com/salesforcecli/plugin-api",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-api",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-auth",
     "packages": [
       {
