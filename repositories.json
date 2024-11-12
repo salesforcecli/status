@@ -18,6 +18,24 @@
     ]
   },
   {
+    "url": "https://github.com/forcedotcom/agents",
+    "packages": [
+      {
+        "name": "@salesforce/agents",
+        "type": "library"
+      }
+    ]
+  },
+  {
+    "url": "https://github.com/salesforcecli/plugin-agent",
+    "packages": [
+      {
+        "name": "@salesforce/plugin-agent",
+        "type": "plugin"
+      }
+    ]
+  },
+  {
     "url": "https://github.com/salesforcecli/plugin-apex",
     "packages": [
       {
