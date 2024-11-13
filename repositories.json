@@ -234,15 +234,6 @@
     ]
   },
   {
-    "url": "https://github.com/salesforcecli/plugin-source",
-    "packages": [
-      {
-        "name": "@salesforce/plugin-source",
-        "type": "plugin"
-      }
-    ]
-  },
-  {
     "url": "https://github.com/salesforcecli/plugin-telemetry",
     "packages": [
       {
