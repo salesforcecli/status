@@ -18,15 +18,6 @@
     ]
   },
   {
-    "url": "https://github.com/forcedotcom/agents",
-    "packages": [
-      {
-        "name": "@salesforce/agents",
-        "type": "library"
-      }
-    ]
-  },
-  {
     "url": "https://github.com/salesforcecli/plugin-agent",
     "packages": [
       {
@@ -171,15 +162,6 @@
     ]
   },
   {
-    "url": "https://github.com/forcedotcom/packaging",
-    "packages": [
-      {
-        "name": "@salesforce/packaging",
-        "type": "library"
-      }
-    ]
-  },
-  {
     "url": "https://github.com/salesforcecli/plugin-packaging",
     "packages": [
       {
@@ -270,6 +252,25 @@
     ]
   },
   {
+  "url": "https://github.com/forcedotcom/sfdx-scanner",
+  "packages": [
+    {
+      "name": "@salesforce/sfdx-scanner",
+      "type": "plugin"
+    }
+  ]
+},
+  {
+    "url": "https://github.com/forcedotcom/change-case-management",
+    "packages": [
+      {
+        "name": "@salesforce/change-case-management",
+        "type": "plugin"
+      }
+    ],
+    "private": true
+  },
+  {
     "url": "https://github.com/salesforcecli/cli-plugins-testkit",
     "packages": [
       {
@@ -315,24 +316,32 @@
     ]
   },
   {
-    "url": "https://github.com/forcedotcom/sfdx-scanner",
+    "url": "https://github.com/forcedotcom/dev-scripts",
     "packages": [
       {
-        "name": "@salesforce/sfdx-scanner",
-        "type": "plugin"
+        "name": "@salesforce/dev-scripts",
+        "type": "library"
       }
     ]
   },
   {
-    "url": "https://github.com/forcedotcom/change-case-management",
-    "packages": [
-      {
-        "name": "@salesforce/change-case-management",
-        "type": "plugin"
-      }
-    ],
-    "private": true
-  },
+  "url": "https://github.com/forcedotcom/agents",
+  "packages": [
+    {
+      "name": "@salesforce/agents",
+      "type": "library"
+    }
+  ]
+},
+  {
+  "url": "https://github.com/forcedotcom/packaging",
+  "packages": [
+    {
+      "name": "@salesforce/packaging",
+      "type": "library"
+    }
+  ]
+},
   {
     "url": "https://github.com/forcedotcom/kit",
     "packages": [
@@ -456,15 +465,6 @@
     ]
   },
   {
-    "url": "https://github.com/forcedotcom/dev-scripts",
-    "packages": [
-      {
-        "name": "@salesforce/dev-scripts",
-        "type": "library"
-      }
-    ]
-  },
-  {
     "url": "https://github.com/forcedotcom/eslint-config-salesforce-typescript",
     "packages": [
       {
@@ -482,5 +482,15 @@
       }
     ],
     "supportsReleases": false
+  },
+  {
+    "url": "https://github.com/forcedotcom/vscode-agents",
+    "packages": [
+      {
+        "name": "salesforcedx-vscode-agents",
+        "type": "VSC Extension"
+      }
+    ],
+    "supportsReleases": true
   }
 ]
