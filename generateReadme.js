@@ -35,6 +35,7 @@ const colorMap = new Map([
   ['GHA', 'orange'],
   ['config', 'lightblue'],
   ['template', 'purple'],
+  ['Extension', 'red'],
 ])
 /**
  * Get the img.shield badge as <type>.

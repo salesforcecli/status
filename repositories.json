@@ -488,7 +488,7 @@
     "packages": [
       {
         "name": "salesforcedx-vscode-agents",
-        "type": "VSC Extension"
+        "type": "Extension"
       }
     ],
     "supportsReleases": true
